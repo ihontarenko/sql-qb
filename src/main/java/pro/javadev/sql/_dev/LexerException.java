@@ -1,4 +1,4 @@
-package pro.javadev.sql;
+package pro.javadev.sql._dev;
 
 public class LexerException extends RuntimeException {
 

@@ -1,5 +1,6 @@
-package pro.javadev.sql;
+package pro.javadev.sql._dev;
 
+import pro.javadev.sql.ASTNode;
 import pro.javadev.sql.dialect.Dialect;
 
 import java.util.HashMap;
@@ -7,7 +8,7 @@ import java.util.Map;
 
 public class RendererContext {
 
-    private final Dialect                                                    dialect;
+    private final Dialect                                                  dialect;
     private final Map<Class<? extends ASTNode>, Map<Dialect, Renderer<?>>> renderers;
 
     public RendererContext(Dialect dialect) {

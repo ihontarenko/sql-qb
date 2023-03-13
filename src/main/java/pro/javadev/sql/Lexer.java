@@ -1,7 +1,8 @@
 package pro.javadev.sql;
 
-public interface Lexer {
+public class Lexer {
 
-
-
+    public Lexer() {
+        Character.isLetterOrDigit()
+    }
 }

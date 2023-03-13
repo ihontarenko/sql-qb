@@ -1,4 +1,4 @@
-package pro.javadev.sql;
+package pro.javadev.sql._dev;
 
 import pro.javadev.sql.dialect.Dialect;
 

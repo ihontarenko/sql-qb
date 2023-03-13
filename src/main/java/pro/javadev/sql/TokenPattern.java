@@ -7,9 +7,9 @@ import java.util.List;
 
 public class TokenPattern {
 
-    private String        pattern;
-    private TokenType     type;
-    private List<Dialect> dialects;
+    private final String    pattern;
+    private final TokenType type;
+    private final List<Dialect> dialects;
 
     public TokenPattern(String pattern, TokenType type) {
         this(pattern, type, Collections.emptyList());
