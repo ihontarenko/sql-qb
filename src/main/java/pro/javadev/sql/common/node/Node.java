@@ -6,8 +6,8 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import static pro.javadev.sql.common.node.Node.Order.ASC;
-import static pro.javadev.sql.common.node.Node.Order.DESC;
+import static pro.javadev.sql.common.node.Node.Order.UP;
+import static pro.javadev.sql.common.node.Node.Order.DOWN;
 
 @SuppressWarnings({"unused"})
 public interface Node {
@@ -34,49 +34,57 @@ public interface Node {
         return Objects.nonNull(findFirst(node));
     }
 
-    default boolean exist(Class<?> type) {
-        return !find(type).isEmpty();
+    default boolean exist(Class<? extends Node> type) {
+        return !findAll(type).isEmpty();
     }
 
-    default List<Node> find(Class<?> type) {
-        List<Node>      result = new ArrayList<>();
-        Predicate<Node> tester = type::isInstance;
-
-        if (hasChildren()) {
-            for (Node child : children()) {
-                if (tester.test(child)) {
-                    result.add(child);
-                }
-                result.addAll(child.find(type));
-            }
-        }
-
-        return result;
+    default boolean same(Node node) {
+        return getClass().isAssignableFrom(node.getClass());
     }
 
     default Node findFirst(Node node) {
-        return findFirst(node, DESC);
+        return findFirst(node, DOWN, Integer.MAX_VALUE);
     }
 
-    default Node findFirst(Node node, Order direction, int depth) {
+    default Node findFirst(Node node, Order order) {
+        return findFirst(node, order, Integer.MAX_VALUE);
+    }
+
+    default Node findFirst(Node node, Order order, int depth) {
+        return findFirst(n -> n.equals(node), order, depth);
+    }
+
+    default Node findFirst(Class<? extends Node> klass) {
+        return findFirst(node -> node.getClass().isAssignableFrom(klass), DOWN, Integer.MAX_VALUE);
+    }
+
+    default Node findFirst(Class<? extends Node> klass, Order order) {
+        return findFirst(node -> node.getClass().isAssignableFrom(klass), order, Integer.MAX_VALUE);
+    }
+
+    default Node findFirst(Class<? extends Node> klass, Order order, int depth) {
+        return findFirst(n -> n.getClass().isAssignableFrom(klass), order, depth);
+    }
+
+    default Node findFirst(Predicate<Node> predicate, Order order, int depth) {
         Node result = null;
 
-        if (!this.equals(node)) {
-            switch (direction) {
-                case ASC:
-                    if (!isRoot()) {
+        if (!predicate.test(this)) {
+            switch (order) {
+                case UP:
+                    if (depth > 0 && !isRoot()) {
                         Node parent = parent();
-                        if (parent.equals(node)) {
+                        if (predicate.test(parent)) {
                             result = parent;
                         } else {
-                            result = parent.findFirst(node, ASC, depth - 1);
+                            result = parent.findFirst(predicate, UP, depth - 1);
                         }
                     }
                     break;
-                case DESC:
-                    if (hasChildren()) {
+                case DOWN:
+                    if (depth > 0 && hasChildren()) {
                         for (Node child : children()) {
-                            if ((result = child.equals(node) ? child : child.findFirst(node)) != null) {
+                            if ((result = predicate.test(child) ? child : child.findFirst(predicate, order, depth - 1)) != null) {
                                 break;
                             }
                         }
@@ -85,6 +93,72 @@ public interface Node {
             }
         } else {
             result = this;
+        }
+
+        return result;
+    }
+
+    default List<Node> findAll(Node node) {
+        return findAll(n -> n.equals(node), DOWN, Integer.MAX_VALUE);
+    }
+
+    default List<Node> findAll(Node node, Order order) {
+        return findAll(n -> n.equals(node), order, Integer.MAX_VALUE);
+    }
+
+    default List<Node> findAll(Node node, int depth) {
+        return findAll(n -> n.equals(node), DOWN, depth);
+    }
+
+    default List<Node> findAll(Node node, Order order, int depth) {
+        return findAll(n -> n.equals(node), order, depth);
+    }
+
+    default List<Node> findAll(Class<? extends Node> klass) {
+        return findAll(n -> n.getClass().isAssignableFrom(klass), DOWN, Integer.MAX_VALUE);
+    }
+
+    default List<Node> findAll(Class<? extends Node> klass, Order order) {
+        return findAll(n -> n.getClass().isAssignableFrom(klass), order, Integer.MAX_VALUE);
+    }
+
+    default List<Node> findAll(Class<? extends Node> klass, int depth) {
+        return findAll(n -> n.getClass().isAssignableFrom(klass), DOWN, depth);
+    }
+
+    default List<Node> findAll(Class<? extends Node> klass, Order order, int depth) {
+        return findAll(n -> n.getClass().isAssignableFrom(klass), order, depth);
+    }
+
+    default List<Node> findAll(Predicate<Node> predicate, Order order, int depth) {
+        List<Node> result = new ArrayList<>();
+
+        switch (order) {
+            case UP:
+                if (depth > 0 && !isRoot()) {
+                    Node parent = parent();
+                    if (predicate.test(parent)) {
+                        result.add(parent);
+                    } else {
+                        result.addAll(
+                                parent.findAll(predicate, UP, depth - 1)
+                        );
+                    }
+                }
+                break;
+            case DOWN:
+                if (depth > 0 && hasChildren()) {
+                    for (Node child : children()) {
+                        if (predicate.test(child)) {
+                            result.add(child);
+                        }
+
+                        result.addAll(
+                                child.findAll(predicate, order, depth - 1)
+                        );
+                    }
+                }
+                break;
         }
 
         return result;
@@ -100,6 +174,6 @@ public interface Node {
         }
     }
 
-    enum Order {DESC, ASC}
+    enum Order {DOWN, UP}
 
 }

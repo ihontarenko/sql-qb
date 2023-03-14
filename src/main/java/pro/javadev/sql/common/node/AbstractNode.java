@@ -53,7 +53,7 @@ abstract public class AbstractNode implements Node {
     public void add(Node node) {
         if (this != node) {
 
-            if (Objects.nonNull(findFirst(node, Order.ASC))) {
+            if (Objects.nonNull(findFirst(node, Order.UP, Integer.MAX_VALUE))) {
                 throw new NodeException("CIRCULAR REFERENCE: THE CURRENT NODE IS A DESCENDANT OF THE PASSED");
             }
 

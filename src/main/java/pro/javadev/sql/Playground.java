@@ -2,11 +2,13 @@ package pro.javadev.sql;
 
 import pro.javadev.sql.common.Token;
 import pro.javadev.sql.common.Tokenizer;
+import pro.javadev.sql.common.node.Node;
 import pro.javadev.sql.lexer.Lexer;
 import pro.javadev.sql.lexer.LexerContext;
 import pro.javadev.sql.lexer.SQLLexer;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Playground {
 
@@ -49,7 +51,34 @@ public class Playground {
             System.out.println(entry);
         }
 
-        tokenizer.add(null);
+        Node root = new NodeA();
+
+        Node nodeB = new NodeB();
+        Node nodeC = new NodeC();
+        Node nodeCD = new NodeCD();
+
+        nodeB.add(nodeCD);
+        nodeB.add(new NodeC());
+        nodeB.add(new NodeC());
+        nodeB.add(new NodeA());
+
+        nodeCD.add(new NodeA() {{
+            add(new NodeC());
+        }});
+
+        root.add(nodeB);
+        root.add(nodeC);
+
+        System.out.println(
+                root.findAll(NodeC.class, 2)
+        );
+
+        System.out.println(
+                "FINISH"
+        );
+
     }
+
+
 
 }
