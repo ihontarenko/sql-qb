@@ -1,6 +1,7 @@
 package pro.javadev.sql._dev;
 
-import pro.javadev.sql.dialect.Dialect;
+import pro.javadev.sql.v1.render.RendererContext;
+import pro.javadev.sql.v1.dialect.Dialect;
 
 @FunctionalInterface
 public interface Interpretable {
