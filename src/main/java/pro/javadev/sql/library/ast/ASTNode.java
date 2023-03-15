@@ -17,7 +17,8 @@ public abstract class ASTNode extends AbstractNode {
     }
 
     public String interpret(SQLDialect dialect, RendererContext context) {
-        return context.getRenderer(dialect, this).render(dialect, context, this);
+        // default interpret method with interacting with renderers
+        return context.getRenderer(dialect, (Class<ASTNode>) this.getClass()).render(dialect, context, this);
     }
 
 }
