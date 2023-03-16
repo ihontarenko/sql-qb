@@ -1,4 +1,4 @@
-package pro.javadev.sql.platform;
+package pro.javadev.sql.platform.ansi_sql;
 
 import pro.javadev.sql.library.token.Token;
 
@@ -6,12 +6,11 @@ import java.util.regex.Pattern;
 
 public enum SQLToken implements Token {
 
-    T_SQL_AGAINST(90100, "AGAINST", "(?i)\\bAGAINST\\b"),
-    T_SQL_ALL(90200, "ALL", "(?i)\\bALL\\b"),
-    T_SQL_AND(90300, "AND", "(?i)\\bAND|\\&\\&"),
-    T_SQL_OR(90330, "OR", "(?i)\\bOR|\\|\\|"),
-    T_SQL_XOR(90360, "XOR", "(?i)\\bXOR|\\^"),
-    T_SQL_AS(90400, "AS", "(?i)\\bAS\\b"),
+    T_SQL_ALL(90100, "ALL", "(?i)\\bALL\\b"),
+    T_SQL_AND(90110, "AND", "(?i)\\bAND|\\&\\&"),
+    T_SQL_OR(90120, "OR", "(?i)\\bOR|\\|\\|"),
+    T_SQL_XOR(90130, "XOR", "(?i)\\bXOR|\\^"),
+    T_SQL_AS(90200, "AS", "(?i)\\bAS\\b"),
     T_SQL_ASC(90500, "ASC", "(?i)\\bASC\\b"),
     T_SQL_BETWEEN(90600, "BETWEEN", "(?i)\\bBETWEEN\\b"),
     T_SQL_BY(90700, "BY", "(?i)\\bBY\\b"),
@@ -31,9 +30,8 @@ public enum SQLToken implements Token {
     T_SQL_LEFT(92200, "LEFT", "(?i)\\bLEFT\\b"),
     T_SQL_LIKE(92300, "LIKE", "(?i)\\bLIKE\\b"),
     T_SQL_LIMIT(92400, "LIMIT", "(?i)\\bLIMIT\\b"),
-    T_SQL_MATCH(92500, "MATCH", "(?i)\\bMATCH\\b"),
-    T_SQL_NOT(92600, "NOT", "(?i)\\bNOT\\b"),
-    T_SQL_ON(92800, "ON", "(?i)\\bON\\b"),
+    T_SQL_NOT(92500, "NOT", "(?i)\\bNOT\\b"),
+    T_SQL_ON(92600, "ON", "(?i)\\bON\\b"),
     T_SQL_ORDER(93000, "ORDER", "(?i)\\bORDER\\b"),
     T_SQL_OUTER(93100, "OUTER", "(?i)\\bOUTER\\b"),
     T_SQL_RIGHT(93200, "RIGHT", "(?i)\\bRIGHT\\b"),

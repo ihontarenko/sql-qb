@@ -5,7 +5,6 @@ public enum SQLDialect {
     MYSQL("MySQL", '`'),
     MSSQL("Microsoft SQL Server", '['),
     ORACLE("Oracle", '"'),
-    POSTGRESQL("PostgreSQL", '"'),
     ANSI_SQL("ANSI SQL", '`');
 
     private final String name;

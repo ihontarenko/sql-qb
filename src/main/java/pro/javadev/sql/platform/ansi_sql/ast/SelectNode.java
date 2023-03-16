@@ -1,4 +1,8 @@
-package pro.javadev.sql.library.ast;
+package pro.javadev.sql.platform.ansi_sql.ast;
+
+import pro.javadev.sql.library.ast.ASTNode;
+import pro.javadev.sql.platform.mysql.ast.LimitNode;
+import pro.javadev.sql.platform.mysql.ast.OffsetNode;
 
 import java.util.List;
 

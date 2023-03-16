@@ -6,8 +6,6 @@ import pro.javadev.sql.library.lexer.Lexer;
 import pro.javadev.sql.library.lexer.LexerContext;
 import pro.javadev.sql.library.lexer.LexerException;
 import pro.javadev.sql.library.lexer.TokenPattern;
-import pro.javadev.sql.library.token.DefaultToken;
-import pro.javadev.sql.platform.mysql.MySQLToken;
 import pro.javadev.sql.library.token.Token.Entry;
 import pro.javadev.sql.library.tokenizer.Tokenizer;
 
@@ -65,21 +63,9 @@ public class SQLLexer implements Lexer {
     }
 
     private List<TokenPattern> getTokenPatterns(SQLDialect dialect, LexerContext context) {
-        List<TokenPattern> patterns = new ArrayList<>();
-//        List<TokenPattern> patterns = context.getTokenPatterns(dialect);
+        List<TokenPattern> patterns = context.getTokenPatterns(dialect);
 
-        for (SQLToken value : SQLToken.values()) {
-            patterns.add(new TokenPattern(value.regexp(), value, SQLDialect.ANSI_SQL, (100 - value.name().length()) + 20000));
-        }
-
-        for (MySQLToken value : MySQLToken.values()) {
-            patterns.add(new TokenPattern(value.regexp(), value, SQLDialect.MYSQL, value.type()));
-        }
-
-        for (DefaultToken value : DefaultToken.values()) {
-            patterns.add(new TokenPattern(value.regexp(), value, SQLDialect.ANSI_SQL, value.type()));
-        }
-
+        patterns.addAll(context.getTokenPatterns(SQLDialect.ANSI_SQL));
         patterns.sort(new PriorityComparator<>());
 
         return patterns;

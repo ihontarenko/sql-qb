@@ -1,4 +1,6 @@
-package pro.javadev.sql.library.ast;
+package pro.javadev.sql.platform.mysql.ast;
+
+import pro.javadev.sql.library.ast.ASTNode;
 
 public class OffsetNode extends ASTNode {
 
