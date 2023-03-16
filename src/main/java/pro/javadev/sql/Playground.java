@@ -47,7 +47,8 @@ public class Playground {
             System.out.println(entry);
         }
 
-/*        Lexer matchAgainst = new SQLLexer();
+        /*
+        Lexer matchAgainst = new SQLLexer();
         LexerContext matchAgainstCtx = new LexerContext.DefaultLexerContext();
 
         matchAgainstCtx.addTokenPattern(SQLDialect.MYSQL, new TokenPattern(T_TILDA.regexp(), T_TILDA));
@@ -57,7 +58,8 @@ public class Playground {
 
         for (Entry entry : lexer.tokenize(SQLDialect.MYSQL, matchAgainstCtx, "~string -exclusion +test +test2 -test4")) {
             System.out.println(entry);
-        }*/
+        }
+        */
 
 //        SelectNode node = new SelectNode();
 //
@@ -83,7 +85,7 @@ public class Playground {
 //        ParserContext parserContext = new ParserContext.DefaultParserContext();
 //
 //        parserContext.addParser(SQLDialect.ORACLE, SelectNode.class, new SelectStatementParser());
-////        parserContext.addParser(SQLDialect.ORACLE, OffsetNode.class, new SelectStatementParser());
+//        parserContext.addParser(SQLDialect.ORACLE, OffsetNode.class, new SelectStatementParser());
 //        System.out.println("привіт");
 //
 //        RendererContext rendererContext = new RendererContext.DefaultRendererContext();

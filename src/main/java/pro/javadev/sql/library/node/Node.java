@@ -80,7 +80,7 @@ public interface Node {
                     if (predicate.test(parent)) {
                         result = (T) parent;
                     } else {
-                        result = parent.findFirst(predicate, UP, depth - 1);
+                        result = parent.findFirst(predicate, way, depth - 1);
                     }
                 }
                 break;
@@ -148,7 +148,7 @@ public interface Node {
                         result.add(parent);
                     } else {
                         result.addAll(
-                                parent.findAll(predicate, UP, depth - 1)
+                                parent.findAll(predicate, way, depth - 1)
                         );
                     }
                 }
