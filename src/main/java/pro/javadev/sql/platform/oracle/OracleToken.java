@@ -8,10 +8,10 @@ public enum OracleToken implements Token {
 
     T_ORACLE_STRING(10000, null, "'([^']|'')*'");
 
-    private final int type;
-    private final String value;
+    private final int     type;
+    private final String  value;
     private final Pattern pattern;
-    private final String regexp;
+    private final String  regexp;
 
     OracleToken(int type, String value, String regexp) {
         this.type = type;

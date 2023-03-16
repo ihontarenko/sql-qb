@@ -1,4 +1,4 @@
-package pro.javadev.sql.platform.ansi_sql.ast;
+package pro.javadev.sql.platform.ansi_sql.ast.statement;
 
 import pro.javadev.sql.library.ast.ASTNode;
 import pro.javadev.sql.platform.mysql.ast.LimitNode;

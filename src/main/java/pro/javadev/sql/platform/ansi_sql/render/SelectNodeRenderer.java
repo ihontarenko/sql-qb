@@ -1,8 +1,10 @@
-package pro.javadev.sql.library.render;
+package pro.javadev.sql.platform.ansi_sql.render;
 
 import pro.javadev.sql.library.SQLDialect;
-import pro.javadev.sql.platform.ansi_sql.ast.ColumnsNode;
-import pro.javadev.sql.platform.ansi_sql.ast.SelectNode;
+import pro.javadev.sql.library.render.Renderer;
+import pro.javadev.sql.library.render.RendererContext;
+import pro.javadev.sql.platform.ansi_sql.ast.statement.ColumnsNode;
+import pro.javadev.sql.platform.ansi_sql.ast.statement.SelectNode;
 
 public class SelectNodeRenderer implements Renderer<SelectNode> {
 
