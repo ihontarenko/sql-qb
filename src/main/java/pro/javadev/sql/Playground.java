@@ -41,7 +41,7 @@ public class Playground {
         new MSSQLLexerContextConfigurator().configure(context);
         new OracleLLexerContextConfigurator().configure(context);
 
-        Tokenizer tokenizer = lexer.tokenize(SQLDialect.ORACLE, context, getSQLString("select-oracle"));
+        Tokenizer tokenizer = lexer.tokenize(SQLDialect.MSSQL, context, getSQLString("select-mssql"));
 
         for (Token.Entry entry : tokenizer) {
             System.out.println(entry);

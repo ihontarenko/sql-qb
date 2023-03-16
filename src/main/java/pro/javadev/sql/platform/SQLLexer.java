@@ -28,15 +28,18 @@ public class SQLLexer implements Lexer {
         List<TokenPattern> patterns = getTokenPatterns(dialect, context);
         List<Entry>        entries  = new ArrayList<>();
 
+        // skip white spaces before parsing
+        skipWhitespace(sql);
+
         while (position < sql.length() - 1) {
             Entry entry = null;
 
-            skipWhitespace(sql);
-
+            // pass through each pattern and search sql occurance
             for (TokenPattern token : patterns) {
                 Pattern pattern = token.getPattern();
                 Matcher matcher = pattern.matcher(sql).region(position, sql.length());
 
+                // if founded create token entry
                 if (matcher.lookingAt()) {
                     entry = Entry.of(token.getToken(), sql.substring(position, matcher.end()), position, ordinal++);
                     this.position += matcher.end() - position;
@@ -44,11 +47,15 @@ public class SQLLexer implements Lexer {
                 }
             }
 
+            // throw exception if token pattern do not match any expression
             if (entry == null) {
                 throw unexpectedCharacterException(dialect, sql);
             }
 
             entries.add(entry);
+
+            // skip white spaces after parsing
+            skipWhitespace(sql);
         }
 
         this.position = 0;
@@ -72,12 +79,15 @@ public class SQLLexer implements Lexer {
     }
 
     private RuntimeException unexpectedCharacterException(SQLDialect dialect, String sql) {
-        String template  = "[DIALECT:%s] UNEXPECTED CHARACTER [%s]:%d SQL: (%s...)";
-        String subSQL    = sql.substring(position, Math.min(position + 10, sql.length())).replaceAll("[\n\t]+", " ");
+        String template  = "[DIALECT:%s] UNEXPECTED CHARACTER [%s]:%d %n%s";
         char   character = sql.charAt(position);
-        String message   = String.format(template, dialect.toString(), character, position, subSQL);
+        int    offset    = 20;
+        int    start     = Math.max(position - offset, 0);
+        int    end       = Math.min(position + offset, sql.length() - 1);
+        String pointer   = "-".repeat(Math.min(offset, position)) + '^' + "-".repeat(Math.min(offset - 1, sql.length() - position - 2));
+        String subSQL    = "%s%n%s".formatted(sql.replaceAll("[\n\t]+", " ").substring(start, end), pointer);
 
-        return new LexerException(message);
+        return new LexerException(String.format(template, dialect.toString(), character, position, subSQL));
     }
 
 }
