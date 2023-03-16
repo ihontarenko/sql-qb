@@ -69,7 +69,7 @@ public class SQLLexer implements Lexer {
 //        List<TokenPattern> patterns = context.getTokenPatterns(dialect);
 
         for (SQLToken value : SQLToken.values()) {
-            patterns.add(new TokenPattern(value.regexp(), value, SQLDialect.ANSI, (100 - value.name().length()) + 20000));
+            patterns.add(new TokenPattern(value.regexp(), value, SQLDialect.ANSI_SQL, (100 - value.name().length()) + 20000));
         }
 
         for (MySQLToken value : MySQLToken.values()) {
@@ -77,7 +77,7 @@ public class SQLLexer implements Lexer {
         }
 
         for (DefaultToken value : DefaultToken.values()) {
-            patterns.add(new TokenPattern(value.regexp(), value, SQLDialect.ANSI, value.type()));
+            patterns.add(new TokenPattern(value.regexp(), value, SQLDialect.ANSI_SQL, value.type()));
         }
 
         patterns.sort(new PriorityComparator<>());

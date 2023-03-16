@@ -41,7 +41,8 @@ public interface ParserContext extends Context {
                 return parser;
             }
 
-            throw new RuntimeException("NO PARSER FOUND FOR NODE '" + nodeClass.getSimpleName() + "' AND DIALECT: " + dialect);
+            throw new ParserException("DIALECT: '%s' HAS NO PARSER FOR NODE TYPE '%s'"
+                    .formatted(dialect, nodeClass.getSimpleName()));
         }
     }
 

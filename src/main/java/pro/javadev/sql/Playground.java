@@ -30,7 +30,7 @@ public class Playground {
 
         context.setDialect(SQLDialect.MSSQL);
 
-        Tokenizer tokenizer = lexer.tokenize(SQLDialect.ORACLE, context, getSQLString("delete"));
+        Tokenizer tokenizer = lexer.tokenize(SQLDialect.ORACLE, context, getSQLString("select"));
 
         for (Token.Entry entry : tokenizer) {
             System.out.println(entry);
@@ -65,15 +65,15 @@ public class Playground {
 
         RendererContext rendererContext = new RendererContext.DefaultRendererContext();
 
-        rendererContext.addRenderer(SQLDialect.SQLITE, SelectNode.class, new SelectNodeRenderer());
+        rendererContext.addRenderer(SQLDialect.MYSQL, SelectNode.class, new SelectNodeRenderer());
 
-        Renderer<SelectNode> renderer = rendererContext.getRenderer(SQLDialect.SQLITE, SelectNode.class);
+        Renderer<SelectNode> renderer = rendererContext.getRenderer(SQLDialect.MYSQL, SelectNode.class);
 
         System.out.println("renderer: " + renderer);
-        System.out.println("parser: " + parserContext.getParser(SQLDialect.ORACLE, SelectNode.class));
+        System.out.println("parser: " + parserContext.getParser(SQLDialect.MSSQL, SelectNode.class));
 
         System.out.println(
-                new SelectNode().interpret(SQLDialect.SQLITE, rendererContext)
+                new SelectNode().interpret(SQLDialect.MYSQL, rendererContext)
         );
     }
 

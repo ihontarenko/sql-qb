@@ -23,4 +23,4 @@ SELECT a.test as all, DISTINCTROW SQL_SMALL_RESULT SQL_NO_CACHE (1 - 2.0) + 3 + 
                                                  SQRT(2 / 3 * RAND(100)) * 123 + 777 / COUNT(s.id) + SUM(s.balance)
 FROM (SELECT 123 AS int_type, 1.23 AS float_type, 1 + 2 * 3 / 1 + 1 * 2 + 3 FROM innter_table) AS t0
        RIGHT JOIN tableName AS t0 ON ((t0.id <= t1.subId OR t1.id >= 1) AND 1 = 1)
-       INNER JOIN tableName AS t0 ON ((t0.cnt / 10 - 3 = SUM(DISTINCT u.cnt) OR ROUND(PI(), 2) = 3.14))
+       INNER JOIN tableName AS t0 ON ((t0.cnt / 10 - 3 = SUM(DISTINCT u.cnt) OR ROUND(PI(), 2) = 3.14) AND sss = "привіт їжак")

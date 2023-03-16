@@ -13,6 +13,10 @@ public class SelectStatementParser implements Parser<SelectNode> {
 
         context.getParser(dialect, OffsetNode.class).parse(dialect, context, tokenizer);
 
+        recognizer.isMathExpressionAhead(tokenizer); // true if (1 + 2) * cos(1) / (3 * 4)
+        recognizer.isFiledPathAhead(tokenizer); // true users.is
+        recognizer.isFunctionAhead(tokenizer); // true if count(*)
+
         return node;
     }
 

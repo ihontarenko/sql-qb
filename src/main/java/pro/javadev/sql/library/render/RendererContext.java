@@ -37,7 +37,8 @@ public interface RendererContext extends Context {
                 return renderer;
             }
 
-            throw new RuntimeException("NO RENDERER FOUND FOR NODE '" + nodeClass.getSimpleName() + "' AND DIALECT: " + dialect);
+            throw new RendererException("DIALECT: '%s' HAS NO RENDERER FOR NODE TYPE '%s'"
+                    .formatted(dialect, nodeClass.getSimpleName()));
         }
 
         @Override
