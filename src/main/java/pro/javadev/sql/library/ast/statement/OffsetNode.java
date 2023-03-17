@@ -1,4 +1,4 @@
-package pro.javadev.sql.platform.mysql.ast;
+package pro.javadev.sql.library.ast.statement;
 
 import pro.javadev.sql.library.ast.ASTNode;
 
@@ -20,7 +20,7 @@ public class OffsetNode extends ASTNode {
 
     @Override
     public String toString() {
-        return "OFFSET_NODE[offset=%d]".formatted(offset);
+        return "OFFSET_NODE: [%d]".formatted(offset);
     }
 
 }

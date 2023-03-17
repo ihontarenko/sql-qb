@@ -1,4 +1,4 @@
-package pro.javadev.sql.platform.mysql.ast;
+package pro.javadev.sql.library.ast.statement;
 
 import pro.javadev.sql.library.ast.ASTNode;
 
@@ -20,6 +20,6 @@ public class LimitNode extends ASTNode {
 
     @Override
     public String toString() {
-        return "LIMIT_NODE[limit=%d]".formatted(limit);
+        return "%s: [%d]".formatted(name(), limit);
     }
 }

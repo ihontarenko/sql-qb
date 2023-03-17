@@ -13,7 +13,7 @@ public interface ParserContext extends Context {
 
     <N extends ASTNode> Parser<N> getParser(SQLDialect dialect, Class<N> nodeClass);
 
-    <N extends ASTNode> Map<Class<? extends N>, Map<SQLDialect, Parser<?>>> getParsers();
+    <N extends ASTNode> Map<SQLDialect, Map<Class<? extends N>, Parser<N>>> getParsers();
 
     class DefaultParserContext extends DefaultContext implements ParserContext {
 
@@ -24,18 +24,18 @@ public interface ParserContext extends Context {
         }
 
         @Override
-        public <N extends ASTNode> Map<Class<? extends N>, Map<SQLDialect, Parser<?>>> getParsers() {
+        public <N extends ASTNode> Map<SQLDialect, Map<Class<? extends N>, Parser<N>>> getParsers() {
             return getProperty(PARSER_PROPERTY);
         }
 
         @Override
         public <N extends ASTNode> void addParser(SQLDialect dialect, Class<? extends N> nodeClass, Parser<N> parser) {
-            getParsers().computeIfAbsent(nodeClass, k -> new HashMap<>()).put(dialect, parser);
+            getParsers().computeIfAbsent(dialect, k -> new HashMap<>()).put(nodeClass, (Parser<ASTNode>) parser);
         }
 
         @Override
         public <N extends ASTNode> Parser<N> getParser(SQLDialect dialect, Class<N> nodeClass) {
-            Parser<N> parser = (Parser<N>) getParsers().computeIfAbsent(nodeClass, k -> new HashMap<>()).get(dialect);
+            Parser<N> parser = (Parser<N>) getParsers().computeIfAbsent(dialect, k -> new HashMap<>()).get(nodeClass);
 
             if (parser != null) {
                 return parser;

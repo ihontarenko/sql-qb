@@ -1,6 +1,6 @@
 package pro.javadev.sql.platform.mssql;
 
-public enum MsSqlFunctions {
+public enum MSSQLFunctions {
     CAST,
     COALESCE,
     DATEPART,

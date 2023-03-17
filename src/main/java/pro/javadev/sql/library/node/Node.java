@@ -3,10 +3,10 @@ package pro.javadev.sql.library.node;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import static pro.javadev.sql.library.node.Node.Way.UP;
 import static pro.javadev.sql.library.node.Node.Way.DOWN;
 
 @SuppressWarnings({"unused"})
@@ -171,14 +171,17 @@ public interface Node {
         return result;
     }
 
-    default void execute(Consumer<Node> executor) {
-        executor.accept(this);
-
+    default void execute(BiConsumer<Node, Integer> executor, int depth) {
+        executor.accept(this, depth);
         if (hasChildren()) {
             for (Node child : children()) {
-                child.execute(executor);
+                child.execute(executor, depth + 1);
             }
         }
+    }
+
+    default void execute(BiConsumer<Node, Integer> executor) {
+        execute(executor, 0);
     }
 
     enum Way {DOWN, UP}

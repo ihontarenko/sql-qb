@@ -7,6 +7,8 @@ import pro.javadev.sql.library.render.RendererContext;
 
 import java.util.List;
 
+import static pro.javadev.sql.library.common.StringUtils.underscored;
+
 public abstract class ASTNode extends AbstractNode {
 
     public <T extends ASTNode> T getChild(Class<T> clazz) {
@@ -22,6 +24,15 @@ public abstract class ASTNode extends AbstractNode {
         Renderer<ASTNode> renderer = context.getRenderer(dialect, (Class<ASTNode>) this.getClass());
 
         return renderer.render(dialect, context, this);
+    }
+
+    public String name() {
+        return underscored(getClass().getSimpleName(), true);
+    }
+
+    @Override
+    public String toString() {
+        return "%s: [%s]".formatted(name(), children);
     }
 
 }

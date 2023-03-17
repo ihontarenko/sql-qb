@@ -5,7 +5,7 @@ import pro.javadev.sql.library.common.Configurator;
 import pro.javadev.sql.library.lexer.LexerContext;
 import pro.javadev.sql.library.lexer.TokenPattern;
 
-public class OracleLLexerContextConfigurator implements Configurator<LexerContext> {
+public class OracleLexerContextConfigurator implements Configurator<LexerContext> {
 
     @Override
     public void configure(LexerContext context) {

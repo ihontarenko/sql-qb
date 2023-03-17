@@ -1,6 +1,6 @@
 package pro.javadev.sql.platform.mysql;
 
-public enum MySqlFunctions {
+public enum MySQLFunctions {
     CONCAT,
     SUBSTRING,
     DATE_FORMAT,
