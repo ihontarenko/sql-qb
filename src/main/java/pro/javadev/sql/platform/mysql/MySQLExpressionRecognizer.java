@@ -9,7 +9,7 @@ public class MySQLExpressionRecognizer extends AnsiExpressionRecognizer {
 
     @Override
     public boolean isFieldPathExpression(Tokenizer tokenizer) {
-        return super.isFieldPathExpression(tokenizer) || tokenizer.isNext(T_MYSQL_FIELD_PATH);
+        return super.isFieldPathExpression(tokenizer) || tokenizer.isCurrent(T_MYSQL_FIELD_PATH);
     }
 
 }

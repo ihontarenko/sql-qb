@@ -14,7 +14,7 @@ public class IdentifierParser extends AbstractParser<IdentifierNode> {
     @Override
     public IdentifierNode parse(SQLDialect dialect, ParserContext context, Tokenizer tokenizer) {
         IdentifierNode identifier = new IdentifierNode();
-        Token.Entry    entry      = consumeToken(T_IDENTIFIER, tokenizer);
+        Token.Entry    entry      = getCurrentToken(T_IDENTIFIER, tokenizer);
 
         identifier.setIdentifier(entry.value());
 

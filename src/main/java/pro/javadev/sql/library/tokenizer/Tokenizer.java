@@ -61,7 +61,7 @@ public interface Tokenizer extends ListIterator<Token.Entry>, Iterable<Token.Ent
         Tokenizer lexer = tokenizer();
 
         for (Token token : tokens) {
-            if (lexer.isNext(token)) {
+            if (lexer.isCurrent(token)) {
                 lexer.next();
             } else {
                 return false;

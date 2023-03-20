@@ -62,6 +62,10 @@ public class Playground {
         System.out.println(
                 renderXML(ast, 0)
         );
+
+        System.out.println(
+                renderXML(parser.parse(SQLDialect.ANSI_SQL, parserContext, lexer.tokenize(SQLDialect.ANSI_SQL, context, "select users.id from users")), 0)
+        );
     }
 
     public static String renderXML(ASTNode node, int depth) {

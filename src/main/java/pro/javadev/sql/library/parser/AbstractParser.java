@@ -6,7 +6,7 @@ import pro.javadev.sql.library.tokenizer.Tokenizer;
 
 public abstract class AbstractParser<N extends ASTNode> implements Parser<N> {
 
-    protected Token.Entry consumeToken(Token expected, Tokenizer tokenizer) {
+    protected Token.Entry getCurrentToken(Token expected, Tokenizer tokenizer) {
         Token.Entry current = tokenizer.current();
 
         if (current.is(expected)) {

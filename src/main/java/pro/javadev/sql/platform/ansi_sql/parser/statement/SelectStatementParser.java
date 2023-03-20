@@ -22,7 +22,7 @@ public class SelectStatementParser extends AbstractParser<SelectStatement> {
     public SelectStatement parse(SQLDialect dialect, ParserContext context, Tokenizer tokenizer) {
         SelectStatement node = new SelectStatement();
 
-        consumeToken(SQLToken.T_SQL_SELECT, tokenizer);
+        getCurrentToken(SQLToken.T_SQL_SELECT, tokenizer);
 
         parseSelectItems(dialect, context, tokenizer).forEach(node::add);
 
@@ -35,7 +35,7 @@ public class SelectStatementParser extends AbstractParser<SelectStatement> {
         selectItems.add(parseSelectItem(dialect, context, tokenizer));
 
         while (tokenizer.isCurrent(DefaultToken.T_COMMA)) {
-            consumeToken(DefaultToken.T_COMMA, tokenizer);
+            getCurrentToken(DefaultToken.T_COMMA, tokenizer);
             selectItems.add(parseSelectItem(dialect, context, tokenizer));
         }
 

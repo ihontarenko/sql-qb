@@ -8,7 +8,7 @@ import static pro.javadev.sql.library.token.DefaultToken.*;
 public interface ExpressionRecognizer {
 
     default boolean isLiteralExpression(Tokenizer tokenizer) {
-        return tokenizer.isNext(T_STRING, T_INT, T_FLOAT, T_TRUE, T_FALSE);
+        return tokenizer.isCurrent(T_STRING, T_INT, T_FLOAT, T_TRUE, T_FALSE);
     }
 
     default boolean isArithmeticExpression(Tokenizer tokenizer) {
@@ -20,7 +20,7 @@ public interface ExpressionRecognizer {
     }
 
     default boolean isFieldPathExpression(Tokenizer tokenizer) {
-        return tokenizer.isNext(T_FIELD_PATH);
+        return tokenizer.isCurrent(T_FIELD_PATH);
     }
 
     default boolean isSubSelectExpression(Tokenizer tokenizer) {

@@ -1,1 +1,1 @@
-SELECT `column_name`.id as uid, users.`id` as u123, u.name, `users`.`email` FROM `table_name` WHERE `column_name` = 'string\'s value';
+SELECT `column_name`.id as uid, count(distinct id) as result, users.`id` as u123, u.name, `users`.`email` FROM `table_name` WHERE `column_name` = 'string\'s value';
