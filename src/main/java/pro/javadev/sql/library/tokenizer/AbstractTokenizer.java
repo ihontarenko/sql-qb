@@ -1,11 +1,11 @@
 package pro.javadev.sql.library.tokenizer;
 
-import pro.javadev.sql.library.lexer.LexerException;
 import pro.javadev.sql.library.token.Token;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+
+import static java.util.Arrays.asList;
 
 public abstract class AbstractTokenizer extends ImmutableListIterator<Token.Entry> implements Tokenizer {
 
@@ -73,11 +73,11 @@ public abstract class AbstractTokenizer extends ImmutableListIterator<Token.Entr
             offset = -cursor;
         }
 
-        Tokenizer   lexer    = lexer(offset);
-        List<Token> expected = Arrays.asList(tokens);
+        Tokenizer   tokenizer = tokenizer(offset);
+        List<Token> expected  = asList(tokens);
 
-        while (limit-- > 0 && lexer.hasNext()) {
-            if (expected.contains(lexer.next().token())) {
+        while (limit-- > 0 && tokenizer.hasNext()) {
+            if (expected.contains(tokenizer.next().token())) {
                 return true;
             }
         }
@@ -87,12 +87,12 @@ public abstract class AbstractTokenizer extends ImmutableListIterator<Token.Entr
 
     @Override
     public Token.Entry lookOver(Token start, Token end) {
-        Tokenizer   lexer  = lexer();
-        Token.Entry result = null;
-        int         depth  = 0;
-        Token.Entry next   = lexer.next();
+        Tokenizer   tokenizer = tokenizer();
+        Token.Entry result    = null;
+        int         depth     = 0;
+        Token.Entry next      = tokenizer.next();
 
-        while (lexer.hasNext()) {
+        while (tokenizer.hasNext()) {
             if (next.is(start)) {
                 depth++;
             }
@@ -106,24 +106,23 @@ public abstract class AbstractTokenizer extends ImmutableListIterator<Token.Entr
                 break;
             }
 
-            next = lexer.next();
+            next = tokenizer.next();
         }
 
         if (result == null) {
-            throw new LexerException(String.format("CANNOT FIND END FOR: %s", end));
+            throw new TokenizerException(String.format("CANNOT FIND END FOR: %s", end));
         }
 
         return result;
     }
 
     @Override
-    public Tokenizer lexer(int offset) {
-        int       cursor = AbstractTokenizer.this.cursor;
-        Tokenizer lexer  = new AbstractTokenizer(AbstractTokenizer.this.entries) {};
+    public Tokenizer tokenizer(int offset) {
+        Tokenizer tokenizer = new AbstractTokenizer(AbstractTokenizer.this.entries) {};
 
-        lexer.cursor(cursor + offset);
+        tokenizer.cursor(AbstractTokenizer.this.cursor + offset);
 
-        return lexer;
+        return tokenizer;
     }
 
 }

@@ -34,7 +34,7 @@ public class SQLLexer implements Lexer {
         while (position < sql.length() - 1) {
             Entry entry = null;
 
-            // pass through each pattern and search sql occurance
+            // pass through each pattern and search sql occurrence
             for (TokenPattern token : patterns) {
                 Pattern pattern = token.getPattern();
                 Matcher matcher = pattern.matcher(sql).region(position, sql.length());

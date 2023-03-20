@@ -29,7 +29,7 @@ public interface Tokenizer extends ListIterator<Token.Entry>, Iterable<Token.Ent
 
     void backward(Token token);
 
-    Tokenizer lexer(int increase);
+    Tokenizer tokenizer(int increase);
 
     boolean is(int limit, int offset, Token... tokens);
 
@@ -58,7 +58,7 @@ public interface Tokenizer extends ListIterator<Token.Entry>, Iterable<Token.Ent
     }
 
     default boolean sequence(Token... tokens) {
-        Tokenizer lexer = lexer();
+        Tokenizer lexer = tokenizer();
 
         for (Token token : tokens) {
             if (lexer.isNext(token)) {
@@ -71,12 +71,12 @@ public interface Tokenizer extends ListIterator<Token.Entry>, Iterable<Token.Ent
         return true;
     }
 
-    default Tokenizer lexer() {
-        return lexer(0);
+    default Tokenizer tokenizer() {
+        return tokenizer(0);
     }
 
     default Token.Entry lookAhead(int offset) {
-        return lexer(offset).current();
+        return tokenizer(offset).current();
     }
 
     default Token.Entry lookAhead() {

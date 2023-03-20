@@ -6,6 +6,7 @@ import pro.javadev.sql.library.ast.IdentifierNode;
 import pro.javadev.sql.library.node.Node;
 import pro.javadev.sql.library.parser.Parser;
 import pro.javadev.sql.library.parser.ParserContext;
+import pro.javadev.sql.library.token.Token;
 import pro.javadev.sql.platform.ansi_sql.AnsiSQLLexerContextConfigurator;
 import pro.javadev.sql.platform.ansi_sql.AnsiSQLParserContextConfigurator;
 import pro.javadev.sql.library.ast.statement.FieldPathExpression;
@@ -25,7 +26,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.function.BiConsumer;
 
 public class Playground {
 
@@ -41,6 +41,10 @@ public class Playground {
         new OracleLexerContextConfigurator().configure(context);
 
         Tokenizer tokenizer = lexer.tokenize(SQLDialect.MYSQL, context, getSQLString("select-mysql"));
+
+        for (Token.Entry entry : lexer.tokenize(SQLDialect.ANSI_SQL, context, "select users.id from users")) {
+            System.out.println(entry);
+        }
 
         ParserContext parserContext = new ParserContext.DefaultParserContext();
 
@@ -58,62 +62,6 @@ public class Playground {
         System.out.println(
                 renderXML(ast, 0)
         );
-
-        /*
-        Lexer matchAgainst = new SQLLexer();
-        LexerContext matchAgainstCtx = new LexerContext.DefaultLexerContext();
-
-        matchAgainstCtx.addTokenPattern(SQLDialect.MYSQL, new TokenPattern(T_TILDA.regexp(), T_TILDA));
-        matchAgainstCtx.addTokenPattern(SQLDialect.MYSQL, new TokenPattern(T_PLUS.regexp(), T_PLUS));
-        matchAgainstCtx.addTokenPattern(SQLDialect.MYSQL, new TokenPattern(T_MINUS.regexp(), T_MINUS));
-        matchAgainstCtx.addTokenPattern(SQLDialect.MYSQL, new TokenPattern(T_IDENTIFIER.regexp(), T_IDENTIFIER));
-
-        for (Entry entry : lexer.tokenize(SQLDialect.MYSQL, matchAgainstCtx, "~string -exclusion +test +test2 -test4")) {
-            System.out.println(entry);
-        }
-        */
-
-//        SelectNode node = new SelectNode();
-//
-//        node.add(new ColumnsNode("COLUMN_A"));
-//        node.add(new ColumnsNode("COLUMN_B"));
-//
-//        node.add(new LimitNode(5));
-//        node.add(new ColumnsNode("COLUMN_C"));
-//        node.add(new OffsetNode(10));
-//
-//        System.out.println(
-//                node.getColumns()
-//        );
-//
-//        node.removeColumns();
-//
-//        node.add(new ColumnsNode("COLUMN_X"));
-//
-//        System.out.println(
-//                "FINISH"
-//        );
-//
-//        ParserContext parserContext = new ParserContext.DefaultParserContext();
-//
-//        parserContext.addParser(SQLDialect.ORACLE, SelectNode.class, new SelectStatementParser());
-//        parserContext.addParser(SQLDialect.ORACLE, OffsetNode.class, new SelectStatementParser());
-//        System.out.println("привіт");
-//
-//        RendererContext rendererContext = new RendererContext.DefaultRendererContext();
-//
-//        rendererContext.addRenderer(SQLDialect.MYSQL, SelectNode.class, new SelectNodeRenderer());
-//
-//        Renderer<SelectNode> renderer = rendererContext.getRenderer(SQLDialect.MYSQL, SelectNode.class);
-//
-//        System.out.println("renderer: " + renderer);
-//        System.out.println("parser: " + parserContext.getParser(SQLDialect.MSSQL, SelectNode.class));
-//
-//        System.out.println(
-//                new SelectNode().interpret(SQLDialect.MYSQL, rendererContext)
-//        );
-
-
     }
 
     public static String renderXML(ASTNode node, int depth) {

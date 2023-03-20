@@ -43,7 +43,8 @@ public enum DefaultToken implements Token {
     T_FALSE(1009000, "FALSE", "false"),
     T_TRUE(1009001, "TRUE", "true"),
     T_NULL(1009999, "NULL", "null"),
-    T_IDENTIFIER(1007000, null, "[a-zA-Z_][a-zA-Z0-9_]*");
+    T_IDENTIFIER(1007000, null, "[a-zA-Z_][a-zA-Z0-9_]*"),
+    T_FIELD_PATH(1006000, null, "[a-zA-Z0-9_$]+\\.[a-zA-Z0-9_]*");
 
     private final int     type;
     private final String  value;

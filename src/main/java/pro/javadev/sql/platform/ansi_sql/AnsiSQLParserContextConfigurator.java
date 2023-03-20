@@ -18,6 +18,8 @@ public class AnsiSQLParserContextConfigurator implements Configurator<ParserCont
         ctx.addParser(ANSI_SQL, IdentifierNode.class, new IdentifierParser());
         ctx.addParser(ANSI_SQL, AliasExpression.class, new AliasExpressionParser());
         ctx.addParser(ANSI_SQL, SelectStatement.class, new SelectStatementParser());
+
+        ctx.setExpressionRecognizer(ANSI_SQL, new AnsiExpressionRecognizer());
     }
 
 }

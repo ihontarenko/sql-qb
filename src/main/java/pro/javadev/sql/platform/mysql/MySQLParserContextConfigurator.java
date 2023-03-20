@@ -22,5 +22,7 @@ public class MySQLParserContextConfigurator implements Configurator<ParserContex
                 -> ctx.addParser(MYSQL, nodeClass, parser));
 
         ctx.addParser(MYSQL, ColumnItem.class, new MySQLColumnItemParser());
+
+        ctx.setExpressionRecognizer(MYSQL, new MySQLExpressionRecognizer());
     }
 }

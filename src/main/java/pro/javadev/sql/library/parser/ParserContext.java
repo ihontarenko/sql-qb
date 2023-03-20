@@ -15,12 +15,18 @@ public interface ParserContext extends Context {
 
     <N extends ASTNode> Map<SQLDialect, Map<Class<? extends N>, Parser<N>>> getParsers();
 
+    void setExpressionRecognizer(SQLDialect dialect, ExpressionRecognizer recognizer);
+
+    ExpressionRecognizer getExpressionRecognizer(SQLDialect dialect);
+
     class DefaultParserContext extends DefaultContext implements ParserContext {
 
-        private static final String PARSER_PROPERTY = "PARSERS";
+        private static final String PARSER_PROPERTY      = "PARSERS";
+        private static final String RECOGNIZERS_PROPERTY = "RECOGNIZERS";
 
         public DefaultParserContext() {
             setProperty(PARSER_PROPERTY, new HashMap<>());
+            setProperty(RECOGNIZERS_PROPERTY, new HashMap<>());
         }
 
         @Override
@@ -43,6 +49,16 @@ public interface ParserContext extends Context {
 
             throw new ParserException("DIALECT: '%s' HAS NO PARSER FOR NODE TYPE '%s'"
                     .formatted(dialect, nodeClass.getSimpleName()));
+        }
+
+        @Override
+        public void setExpressionRecognizer(SQLDialect dialect, ExpressionRecognizer recognizer) {
+            ((Map<SQLDialect, ExpressionRecognizer>)getProperty(RECOGNIZERS_PROPERTY)).put(dialect, recognizer);
+        }
+
+        @Override
+        public ExpressionRecognizer getExpressionRecognizer(SQLDialect dialect) {
+            return ((Map<SQLDialect, ExpressionRecognizer>)getProperty(RECOGNIZERS_PROPERTY)).get(dialect);
         }
     }
 

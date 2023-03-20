@@ -5,24 +5,22 @@ import pro.javadev.sql.library.ast.statement.ColumnItem;
 import pro.javadev.sql.library.ast.statement.FieldPathExpression;
 import pro.javadev.sql.library.parser.AbstractParser;
 import pro.javadev.sql.library.parser.ParserContext;
+import pro.javadev.sql.library.token.DefaultToken;
 import pro.javadev.sql.library.token.Token;
 import pro.javadev.sql.library.tokenizer.Tokenizer;
+
+import java.util.function.Predicate;
 
 public class ColumnItemParser extends AbstractParser<ColumnItem> {
 
     @Override
     public ColumnItem parse(SQLDialect dialect, ParserContext context, Tokenizer tokenizer) {
+        Predicate<Tokenizer> tester = context.getExpressionRecognizer(dialect)::isSubSelectExpression;
 
-        // isArithmeticExpression
-        // isFunctionExpression
-        // isFieldPathExpression
-        // isSubSelectExpression
-
-        return parseFieldPathExpression(dialect, context, tokenizer);
+        return parseFieldPathExpression(consumeToken(DefaultToken.T_IDENTIFIER, tokenizer), dialect);
     }
 
-    protected ColumnItem parseFieldPathExpression(SQLDialect dialect, ParserContext context, Tokenizer tokenizer) {
-        Token.Entry         entry      = consumeToken(T_MYSQL_FIELD_PATH, tokenizer);
+    protected ColumnItem parseFieldPathExpression(Token.Entry entry, SQLDialect dialect) {
         String              path       = entry.value();
         String[]            parts      = path.split("\\.");
         String              table      = parts[0];
