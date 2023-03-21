@@ -10,7 +10,7 @@ public class LiteralParser extends AbstractParser<LiteralNode> {
 
     @Override
     public LiteralNode parse(SQLDialect dialect, ParserContext context, Tokenizer tokenizer) {
-        LiteralNode node = new LiteralNode();
+        LiteralNode node = new LiteralNode(null);
 
         return node;
     }

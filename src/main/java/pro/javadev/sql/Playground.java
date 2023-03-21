@@ -9,8 +9,7 @@ import pro.javadev.sql.library.parser.ParserContext;
 import pro.javadev.sql.library.token.Token;
 import pro.javadev.sql.platform.ansi_sql.AnsiSQLLexerContextConfigurator;
 import pro.javadev.sql.platform.ansi_sql.AnsiSQLParserContextConfigurator;
-import pro.javadev.sql.library.ast.statement.FieldPathExpression;
-import pro.javadev.sql.library.ast.statement.SelectStatement;
+import pro.javadev.sql.library.ast.SelectStatement;
 import pro.javadev.sql.platform.mssql.MSSQLLexerContextConfigurator;
 import pro.javadev.sql.platform.mysql.MySQLLexerContextConfigurator;
 import pro.javadev.sql.library.lexer.Lexer;
@@ -26,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.function.BiConsumer;
 
 public class Playground {
 
@@ -63,9 +63,12 @@ public class Playground {
                 renderXML(ast, 0)
         );
 
-        System.out.println(
-                renderXML(parser.parse(SQLDialect.ANSI_SQL, parserContext, lexer.tokenize(SQLDialect.ANSI_SQL, context, "select users.id from users")), 0)
-        );
+        BiConsumer<Node, Integer> consumer = (node, depth) -> {
+            System.out.println("\t".repeat(depth) + node);
+        };
+
+        ast.execute(consumer);
+
     }
 
     public static String renderXML(ASTNode node, int depth) {

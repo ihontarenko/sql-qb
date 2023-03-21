@@ -1,7 +1,7 @@
-package pro.javadev.sql.platform.ansi_sql.parser.statement;
+package pro.javadev.sql.platform.ansi_sql.parser;
 
 import pro.javadev.sql.library.SQLDialect;
-import pro.javadev.sql.library.ast.statement.FieldPathExpression;
+import pro.javadev.sql.library.ast.FieldPathExpression;
 import pro.javadev.sql.library.parser.AbstractParser;
 import pro.javadev.sql.library.parser.ParserContext;
 import pro.javadev.sql.library.token.Token;
@@ -23,16 +23,16 @@ public class FieldPathParser extends AbstractParser<FieldPathExpression> {
         String              field      = parts[1];
         FieldPathExpression expression = new FieldPathExpression();
 
-        if (table.indexOf(dialect.getEscapeCharacter()) == 0) {
+        if (table.indexOf(dialect.getOpenEscapeCharacter()) == 0) {
             table = table.substring(1, table.length() - 1);
         }
 
-        if (field.indexOf(dialect.getEscapeCharacter()) == 0) {
+        if (field.indexOf(dialect.getOpenEscapeCharacter()) == 0) {
             field = field.substring(1, field.length() - 1);
         }
 
-        expression.setTable(table);
-        expression.setField(field);
+        expression.setTable(new TableIdentifier(table));
+        expression.setField(new FieldIdentifier(field));
 
         return expression;
     }

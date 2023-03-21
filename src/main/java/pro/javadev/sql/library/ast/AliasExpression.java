@@ -1,7 +1,4 @@
-package pro.javadev.sql.library.ast.statement;
-
-import pro.javadev.sql.library.ast.ASTNode;
-import pro.javadev.sql.library.ast.IdentifierNode;
+package pro.javadev.sql.library.ast;
 
 public class AliasExpression extends ASTNode {
 

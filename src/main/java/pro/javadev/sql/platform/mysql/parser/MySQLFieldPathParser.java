@@ -1,10 +1,10 @@
 package pro.javadev.sql.platform.mysql.parser;
 
 import pro.javadev.sql.library.SQLDialect;
-import pro.javadev.sql.library.ast.statement.FieldPathExpression;
+import pro.javadev.sql.library.ast.FieldPathExpression;
 import pro.javadev.sql.library.parser.ParserContext;
 import pro.javadev.sql.library.tokenizer.Tokenizer;
-import pro.javadev.sql.platform.ansi_sql.parser.statement.FieldPathParser;
+import pro.javadev.sql.platform.ansi_sql.parser.FieldPathParser;
 
 import static pro.javadev.sql.platform.mysql.MySQLToken.T_MYSQL_FIELD_PATH;
 

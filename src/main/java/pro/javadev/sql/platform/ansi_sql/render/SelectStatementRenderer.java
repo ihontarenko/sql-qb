@@ -3,8 +3,8 @@ package pro.javadev.sql.platform.ansi_sql.render;
 import pro.javadev.sql.library.SQLDialect;
 import pro.javadev.sql.library.render.Renderer;
 import pro.javadev.sql.library.render.RendererContext;
-import pro.javadev.sql.library.ast.statement.ColumnItem;
-import pro.javadev.sql.library.ast.statement.SelectStatement;
+import pro.javadev.sql.library.ast.ColumnItem;
+import pro.javadev.sql.library.ast.SelectStatement;
 
 public class SelectStatementRenderer implements Renderer<SelectStatement> {
 

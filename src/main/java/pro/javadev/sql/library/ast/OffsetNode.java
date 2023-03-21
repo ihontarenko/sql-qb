@@ -1,4 +1,4 @@
-package pro.javadev.sql.library.ast.statement;
+package pro.javadev.sql.library.ast;
 
 import pro.javadev.sql.library.ast.ASTNode;
 

@@ -101,12 +101,12 @@ public abstract class AbstractTokenizer extends ImmutableListIterator<Token.Entr
                 depth--;
             }
 
+            next = tokenizer.next();
+
             if (depth == 0) {
                 result = next;
                 break;
             }
-
-            next = tokenizer.next();
         }
 
         if (result == null) {

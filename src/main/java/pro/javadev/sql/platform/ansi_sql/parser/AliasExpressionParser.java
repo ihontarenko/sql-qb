@@ -1,8 +1,8 @@
-package pro.javadev.sql.platform.ansi_sql.parser.statement;
+package pro.javadev.sql.platform.ansi_sql.parser;
 
 import pro.javadev.sql.library.SQLDialect;
 import pro.javadev.sql.library.ast.IdentifierNode;
-import pro.javadev.sql.library.ast.statement.AliasExpression;
+import pro.javadev.sql.library.ast.AliasExpression;
 import pro.javadev.sql.library.parser.AbstractParser;
 import pro.javadev.sql.library.parser.Parser;
 import pro.javadev.sql.library.parser.ParserContext;

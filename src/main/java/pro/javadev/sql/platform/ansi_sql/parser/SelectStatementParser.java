@@ -1,20 +1,20 @@
-package pro.javadev.sql.platform.ansi_sql.parser.statement;
+package pro.javadev.sql.platform.ansi_sql.parser;
 
 import pro.javadev.sql.library.SQLDialect;
 import pro.javadev.sql.library.ast.ASTNode;
-import pro.javadev.sql.library.ast.statement.AliasExpression;
+import pro.javadev.sql.library.ast.AliasExpression;
 import pro.javadev.sql.library.parser.AbstractParser;
 import pro.javadev.sql.library.parser.ParserContext;
-import pro.javadev.sql.library.token.DefaultToken;
 import pro.javadev.sql.library.tokenizer.Tokenizer;
-import pro.javadev.sql.platform.ansi_sql.SQLToken;
-import pro.javadev.sql.library.ast.statement.ColumnItem;
-import pro.javadev.sql.library.ast.statement.SelectStatement;
+import pro.javadev.sql.library.ast.ColumnItem;
+import pro.javadev.sql.library.ast.SelectStatement;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static pro.javadev.sql.library.token.DefaultToken.T_COMMA;
 import static pro.javadev.sql.platform.ansi_sql.SQLToken.T_SQL_AS;
+import static pro.javadev.sql.platform.ansi_sql.SQLToken.T_SQL_SELECT;
 
 public class SelectStatementParser extends AbstractParser<SelectStatement> {
 
@@ -22,7 +22,7 @@ public class SelectStatementParser extends AbstractParser<SelectStatement> {
     public SelectStatement parse(SQLDialect dialect, ParserContext context, Tokenizer tokenizer) {
         SelectStatement node = new SelectStatement();
 
-        getCurrentToken(SQLToken.T_SQL_SELECT, tokenizer);
+        getCurrentToken(T_SQL_SELECT, tokenizer);
 
         parseSelectItems(dialect, context, tokenizer).forEach(node::add);
 
@@ -34,8 +34,8 @@ public class SelectStatementParser extends AbstractParser<SelectStatement> {
 
         selectItems.add(parseSelectItem(dialect, context, tokenizer));
 
-        while (tokenizer.isCurrent(DefaultToken.T_COMMA)) {
-            getCurrentToken(DefaultToken.T_COMMA, tokenizer);
+        while (tokenizer.isCurrent(T_COMMA)) {
+            shift(T_COMMA, tokenizer);
             selectItems.add(parseSelectItem(dialect, context, tokenizer));
         }
 

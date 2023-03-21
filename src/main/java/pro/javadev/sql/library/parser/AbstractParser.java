@@ -17,6 +17,12 @@ public abstract class AbstractParser<N extends ASTNode> implements Parser<N> {
         throw new ParserException("EXPECTED TOKEN: [" + expected + "] BUT GOTTEN: [" + current + "]");
     }
 
+    protected void shift(Token expected, Tokenizer tokenizer) {
+        if (tokenizer.current().is(expected)) {
+            tokenizer.next();
+        }
+    }
+
     protected boolean isCurrent(Token expected, Tokenizer tokenizer) {
         return tokenizer.isCurrent(expected);
     }

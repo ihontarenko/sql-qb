@@ -2,25 +2,31 @@ package pro.javadev.sql.library;
 
 public enum SQLDialect {
 
-    MYSQL("MySQL", '`'),
-    MSSQL("Microsoft SQL Server", '['),
-    ORACLE("Oracle", '"'),
-    ANSI_SQL("ANSI SQL", '`');
+    MYSQL("MySQL", '`', '`'),
+    MSSQL("Microsoft SQL Server", '[', ']'),
+    ORACLE("Oracle", '"', '"'),
+    ANSI_SQL("ANSI SQL", '`', '`');
 
     private final String name;
-    private final char   escapeCharacter;
+    private final char   closeEscapeCharacter;
+    private final char   openEscapeCharacter;
 
-    SQLDialect(String name, char escapeCharacter) {
+    SQLDialect(String name, char openEscapeCharacter, char closeEscapeCharacter) {
         this.name = name;
-        this.escapeCharacter = escapeCharacter;
+        this.closeEscapeCharacter = closeEscapeCharacter;
+        this.openEscapeCharacter = openEscapeCharacter;
     }
 
     public String getName() {
         return name;
     }
 
-    public char getEscapeCharacter() {
-        return escapeCharacter;
+    public char getOpenEscapeCharacter() {
+        return openEscapeCharacter;
+    }
+
+    public char getCloseEscapeCharacter() {
+        return closeEscapeCharacter;
     }
 
     @Override
