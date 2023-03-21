@@ -14,12 +14,20 @@ public abstract class AbstractParser<N extends ASTNode> implements Parser<N> {
             return current;
         }
 
-        throw new ParserException("EXPECTED TOKEN: [" + expected + "] BUT GOTTEN: [" + current + "]");
+        throw new ParserException("EXPECTED TOKEN: [" + expected + "] BUT GOTTEN: [" + current + "]", tokenizer);
     }
 
     protected void shift(Token expected, Tokenizer tokenizer) {
-        if (tokenizer.current().is(expected)) {
+        shift(expected, tokenizer, true);
+    }
+
+    protected void shift(Token expected, Tokenizer tokenizer, boolean throwException) {
+        Token.Entry current = tokenizer.current();
+
+        if (current.is(expected)) {
             tokenizer.next();
+        } else if (throwException) {
+            throw new ParserException("EXPECTED TOKEN: [" + expected + "] BUT GOTTEN: [" + current + "]", tokenizer);
         }
     }
 

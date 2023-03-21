@@ -12,4 +12,13 @@ public class LiteralNode extends ASTNode {
         return value;
     }
 
+    public void setValue(Object value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "%s[%s]".formatted(name(), value);
+    }
+
 }

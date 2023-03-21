@@ -1,14 +1,8 @@
 package pro.javadev.sql.platform.ansi_sql.parser;
 
 import pro.javadev.sql.library.SQLDialect;
-import pro.javadev.sql.library.ast.ExpressionItem;
-import pro.javadev.sql.library.ast.FieldPathExpression;
-import pro.javadev.sql.library.ast.FunctionCallExpression;
-import pro.javadev.sql.library.ast.IdentifierNode;
-import pro.javadev.sql.library.parser.AbstractParser;
-import pro.javadev.sql.library.parser.ExpressionRecognizer;
-import pro.javadev.sql.library.parser.Parser;
-import pro.javadev.sql.library.parser.ParserContext;
+import pro.javadev.sql.library.ast.*;
+import pro.javadev.sql.library.parser.*;
 import pro.javadev.sql.library.tokenizer.Tokenizer;
 
 public class ExpressionItemParser extends AbstractParser<ExpressionItem> {
@@ -28,6 +22,11 @@ public class ExpressionItemParser extends AbstractParser<ExpressionItem> {
             Parser<IdentifierNode> parser = context.getParser(dialect, IdentifierNode.class);
             IdentifierNode         node   = parser.parse(dialect, context, tokenizer);
             item.add(new FieldIdentifier(node.getIdentifier()));
+        } else if (recognizer.isLiteralExpression(tokenizer)) {
+            Parser<LiteralNode> parser = context.getParser(dialect, LiteralNode.class);
+            item.add(parser.parse(dialect, context, tokenizer));
+        } else {
+            throw new ParserException("UNRECOGNIZABLE NEXT TOKEN", tokenizer);
         }
 
         return item;

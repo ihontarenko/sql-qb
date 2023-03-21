@@ -25,7 +25,7 @@ public class FunctionCallParser extends AbstractParser<FunctionCallExpression> {
         expression.add(parser.parse(dialect, context, tokenizer));
 
         while (tokenizer.isCurrent(DefaultToken.T_COMMA)) {
-            getCurrentToken(DefaultToken.T_COMMA, tokenizer);
+            shift(DefaultToken.T_COMMA, tokenizer);
             expression.add(parser.parse(dialect, context, tokenizer));
         }
 
