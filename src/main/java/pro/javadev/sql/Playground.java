@@ -42,10 +42,6 @@ public class Playground {
 
         Tokenizer tokenizer = lexer.tokenize(SQLDialect.MYSQL, context, getSQLString("select-mysql"));
 
-        for (Token.Entry entry : lexer.tokenize(SQLDialect.ANSI_SQL, context, "select users.id from users")) {
-            System.out.println(entry);
-        }
-
         ParserContext parserContext = new ParserContext.DefaultParserContext();
 
         new AnsiSQLParserContextConfigurator().configure(parserContext);
@@ -56,7 +52,7 @@ public class Playground {
         SelectStatement ast = parser.parse(SQLDialect.MYSQL, parserContext, tokenizer);
 
         for (Node node : ast.findAll(IdentifierNode.class)) {
-            System.out.println(node);
+//            System.out.println(node);
         }
 
         System.out.println(

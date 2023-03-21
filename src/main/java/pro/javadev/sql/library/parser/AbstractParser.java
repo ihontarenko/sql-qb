@@ -14,7 +14,7 @@ public abstract class AbstractParser<N extends ASTNode> implements Parser<N> {
             return current;
         }
 
-        throw new ParserException("EXPECTED TOKEN: [" + expected + "] BUT GOTTEN: [" + current + "]", tokenizer);
+        throw new ParserException("EXPECTED TOKEN: [" + expected + "] BUT GOTTEN: [" + current + "]");
     }
 
     protected void shift(Token expected, Tokenizer tokenizer) {
@@ -27,7 +27,7 @@ public abstract class AbstractParser<N extends ASTNode> implements Parser<N> {
         if (current.is(expected)) {
             tokenizer.next();
         } else if (throwException) {
-            throw new ParserException("EXPECTED TOKEN: [" + expected + "] BUT GOTTEN: [" + current + "]", tokenizer);
+            throw new ParserException("EXPECTED TOKEN: [" + expected + "] BUT GOTTEN: [" + current + "]");
         }
     }
 

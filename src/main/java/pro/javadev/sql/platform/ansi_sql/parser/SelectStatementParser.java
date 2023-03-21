@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static pro.javadev.sql.library.token.DefaultToken.T_COMMA;
+import static pro.javadev.sql.library.token.DefaultToken.T_IDENTIFIER;
 import static pro.javadev.sql.platform.ansi_sql.SQLToken.T_SQL_AS;
 import static pro.javadev.sql.platform.ansi_sql.SQLToken.T_SQL_SELECT;
 
@@ -45,7 +46,7 @@ public class SelectStatementParser extends AbstractParser<SelectStatement> {
     protected ColumnItem parseSelectItem(SQLDialect dialect, ParserContext context, Tokenizer tokenizer) {
         ColumnItem item = context.getParser(dialect, ColumnItem.class).parse(dialect, context, tokenizer);
 
-        if (isCurrent(T_SQL_AS, tokenizer)) {
+        if (tokenizer.isCurrent(T_SQL_AS, T_IDENTIFIER)) {
             item.add(context.getParser(dialect, AliasExpression.class).parse(dialect, context, tokenizer));
         }
 

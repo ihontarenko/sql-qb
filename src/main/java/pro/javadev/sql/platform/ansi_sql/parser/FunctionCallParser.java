@@ -20,10 +20,10 @@ public class FunctionCallParser extends AbstractParser<FunctionCallExpression> {
         Parser<ExpressionItem> parser = context.getParser(dialect, ExpressionItem.class);
 
         expression.add(context.getParser(dialect, IdentifierNode.class).parse(dialect, context, tokenizer));
+
         shift(T_OPEN_BRACE, tokenizer);
 
         expression.add(parser.parse(dialect, context, tokenizer));
-
         while (tokenizer.isCurrent(DefaultToken.T_COMMA)) {
             shift(DefaultToken.T_COMMA, tokenizer);
             expression.add(parser.parse(dialect, context, tokenizer));

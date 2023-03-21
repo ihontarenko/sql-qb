@@ -3,21 +3,40 @@ package pro.javadev.sql.library.parser;
 import pro.javadev.sql.library.token.Token;
 import pro.javadev.sql.library.tokenizer.Tokenizer;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static pro.javadev.sql.library.token.DefaultToken.*;
 
 @SuppressWarnings({"unused"})
 public interface ExpressionRecognizer {
+
+    List<Token> ARITHMETIC_TOKENS = Arrays.asList(T_MINUS, T_PLUS, T_DIVIDE, T_MULTIPLY, T_PERCENT);
 
     default boolean isIdentifier(Tokenizer tokenizer) {
         return tokenizer.isCurrent(T_IDENTIFIER);
     }
 
     default boolean isLiteralExpression(Tokenizer tokenizer) {
-        return tokenizer.isCurrent(T_STRING, T_INT, T_FLOAT, T_TRUE, T_FALSE);
+        return tokenizer.isCurrent(T_STRING, T_INT, T_FLOAT, T_TRUE, T_FALSE, T_NULL);
     }
 
     default boolean isArithmeticExpression(Tokenizer tokenizer) {
-        return false;
+        boolean     result;
+
+        if (isLiteralExpression(tokenizer)) {
+            result = tokenizer.isNext(ARITHMETIC_TOKENS.toArray(Token[]::new));
+        } else if (isFunctionExpression(tokenizer)) {
+            result = ARITHMETIC_TOKENS.contains(tokenizer.tokenizer(1).lookOver(T_OPEN_BRACE, T_CLOSE_BRACE).token());
+        } else {
+            result = isArithmeticOperator(tokenizer);
+        }
+
+        return result;
+    }
+
+    default boolean isArithmeticOperator(Tokenizer tokenizer) {
+        return tokenizer.isCurrent(ARITHMETIC_TOKENS.toArray(Token[]::new));
     }
 
     default boolean isFunctionExpression(Tokenizer tokenizer) {
