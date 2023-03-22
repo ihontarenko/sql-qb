@@ -32,7 +32,7 @@ public abstract class ASTNode extends AbstractNode {
 
     @Override
     public String toString() {
-        return "%s: [%s]".formatted(name(), children);
+        return "%s".formatted(name());
     }
 
 }

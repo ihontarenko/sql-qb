@@ -59,9 +59,7 @@ public class Playground {
                 renderXML(ast, 0)
         );
 
-        BiConsumer<Node, Integer> consumer = (node, depth) -> {
-            System.out.println("\t".repeat(depth) + node);
-        };
+        BiConsumer<Node, Integer> consumer = (node, depth) -> System.out.println("\t".repeat(depth) + node);
 
         ast.execute(consumer);
 
