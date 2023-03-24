@@ -9,11 +9,17 @@ import java.util.Map;
 
 public interface ParserContext extends Context {
 
+    void setDialect(SQLDialect dialect);
+
+    SQLDialect getDialect();
+
     <N extends ASTNode> void addParser(SQLDialect dialect, Class<? extends N> nodeClass, Parser<N> parser);
 
     <N extends ASTNode> Parser<N> getParser(SQLDialect dialect, Class<N> nodeClass);
 
-    <N extends ASTNode> Map<SQLDialect, Map<Class<? extends N>, Parser<N>>> getParsers();
+    Map<SQLDialect, Map<Class<? extends ASTNode>, Parser<? extends ASTNode>>> getParsers();
+
+    Map<Class<? extends ASTNode>, Parser<? extends ASTNode>> getParsers(SQLDialect dialect);
 
     void setExpressionRecognizer(SQLDialect dialect, ExpressionRecognizer recognizer);
 
@@ -23,6 +29,7 @@ public interface ParserContext extends Context {
 
         private static final String PARSER_PROPERTY      = "PARSERS";
         private static final String RECOGNIZERS_PROPERTY = "RECOGNIZERS";
+        private static final String DIALECT_PROPERTY     = "DIALECT";
 
         public DefaultParserContext() {
             setProperty(PARSER_PROPERTY, new HashMap<>());
@@ -30,25 +37,44 @@ public interface ParserContext extends Context {
         }
 
         @Override
-        public <N extends ASTNode> Map<SQLDialect, Map<Class<? extends N>, Parser<N>>> getParsers() {
+        public void setDialect(SQLDialect dialect) {
+            setProperty(DIALECT_PROPERTY, dialect);
+        }
+
+        @Override
+        public SQLDialect getDialect() {
+            return getProperty(DIALECT_PROPERTY);
+        }
+
+        @Override
+        public Map<SQLDialect, Map<Class<? extends ASTNode>, Parser<? extends ASTNode>>>  getParsers() {
             return getProperty(PARSER_PROPERTY);
         }
 
         @Override
+        public Map<Class<? extends ASTNode>, Parser<? extends ASTNode>> getParsers(SQLDialect dialect) {
+            return getParsers().computeIfAbsent(dialect, k -> new HashMap<>());
+        }
+
+        @Override
         public <N extends ASTNode> void addParser(SQLDialect dialect, Class<? extends N> nodeClass, Parser<N> parser) {
-            getParsers().computeIfAbsent(dialect, k -> new HashMap<>()).put(nodeClass, (Parser<ASTNode>) parser);
+            getParsers(dialect).put(nodeClass, parser);
         }
 
         @Override
         public <N extends ASTNode> Parser<N> getParser(SQLDialect dialect, Class<N> nodeClass) {
-            Parser<N> parser = (Parser<N>) getParsers().computeIfAbsent(dialect, k -> new HashMap<>()).get(nodeClass);
+            Parser<? extends ASTNode> parser = getParsers(dialect).get(nodeClass);
 
-            if (parser != null) {
-                return parser;
+            if (parser == null) {
+                parser = getParsers(getDialect()).get(nodeClass);
             }
 
-            throw new ParserException("DIALECT: '%s' HAS NO PARSER FOR NODE TYPE '%s'"
-                    .formatted(dialect, nodeClass.getSimpleName()));
+            if (parser == null) {
+                throw new ParserException("DIALECT: '%s' HAS NO PARSER FOR NODE TYPE '%s'"
+                        .formatted(dialect, nodeClass.getSimpleName()));
+            }
+
+            return (Parser<N>) parser;
         }
 
         @Override

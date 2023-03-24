@@ -13,6 +13,11 @@ public interface ExpressionRecognizer {
 
     List<Token> ARITHMETIC_TOKENS = Arrays.asList(T_MINUS, T_PLUS, T_DIVIDE, T_MULTIPLY, T_PERCENT);
 
+    default boolean isExpression(Tokenizer tokenizer) {
+        return isFieldPathExpression(tokenizer) || isFunctionExpression(tokenizer)
+                || isIdentifier(tokenizer) || isLiteralExpression(tokenizer);
+    }
+
     default boolean isIdentifier(Tokenizer tokenizer) {
         return tokenizer.isCurrent(T_IDENTIFIER);
     }
@@ -22,14 +27,12 @@ public interface ExpressionRecognizer {
     }
 
     default boolean isArithmeticExpression(Tokenizer tokenizer) {
-        boolean     result;
+        boolean result = false;
 
         if (isLiteralExpression(tokenizer)) {
             result = tokenizer.isNext(ARITHMETIC_TOKENS.toArray(Token[]::new));
         } else if (isFunctionExpression(tokenizer)) {
             result = ARITHMETIC_TOKENS.contains(tokenizer.tokenizer(1).lookOver(T_OPEN_BRACE, T_CLOSE_BRACE).token());
-        } else {
-            result = isArithmeticOperator(tokenizer);
         }
 
         return result;

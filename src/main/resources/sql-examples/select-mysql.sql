@@ -1,5 +1,5 @@
 SELECT
-1 + 2 + 3 + 4 + 5 as num2,
+1 + 2 + 3 * 4 + 5 as num2,
 SQRT(2 / 3 * RAND(100)) * 123 + 777 / COUNT(s.id) + SUM(s.balance) as math_result,
 123 as number,
 `column_name`.id as uid,

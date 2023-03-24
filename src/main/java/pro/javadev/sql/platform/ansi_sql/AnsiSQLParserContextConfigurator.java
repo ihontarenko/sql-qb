@@ -11,6 +11,8 @@ public class AnsiSQLParserContextConfigurator implements Configurator<ParserCont
 
     @Override
     public void configure(ParserContext ctx) {
+        ctx.setDialect(ANSI_SQL);
+
         ctx.addParser(ANSI_SQL, SelectStatement.class, new SelectStatementParser());
         ctx.addParser(ANSI_SQL, ColumnItem.class, new ColumnItemParser());
         ctx.addParser(ANSI_SQL, AliasExpression.class, new AliasExpressionParser());

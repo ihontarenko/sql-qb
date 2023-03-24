@@ -2,20 +2,18 @@ package pro.javadev.sql;
 
 import pro.javadev.sql.library.SQLDialect;
 import pro.javadev.sql.library.ast.ASTNode;
-import pro.javadev.sql.library.ast.IdentifierNode;
+import pro.javadev.sql.library.ast.SelectStatement;
+import pro.javadev.sql.library.lexer.Lexer;
+import pro.javadev.sql.library.lexer.LexerContext;
 import pro.javadev.sql.library.node.Node;
 import pro.javadev.sql.library.parser.Parser;
 import pro.javadev.sql.library.parser.ParserContext;
-import pro.javadev.sql.library.token.Token;
-import pro.javadev.sql.platform.ansi_sql.AnsiSQLLexerContextConfigurator;
-import pro.javadev.sql.platform.ansi_sql.AnsiSQLParserContextConfigurator;
-import pro.javadev.sql.library.ast.SelectStatement;
-import pro.javadev.sql.platform.mssql.MSSQLLexerContextConfigurator;
-import pro.javadev.sql.platform.mysql.MySQLLexerContextConfigurator;
-import pro.javadev.sql.library.lexer.Lexer;
-import pro.javadev.sql.library.lexer.LexerContext;
 import pro.javadev.sql.library.tokenizer.Tokenizer;
 import pro.javadev.sql.platform.SQLLexer;
+import pro.javadev.sql.platform.ansi_sql.AnsiSQLLexerContextConfigurator;
+import pro.javadev.sql.platform.ansi_sql.AnsiSQLParserContextConfigurator;
+import pro.javadev.sql.platform.mssql.MSSQLLexerContextConfigurator;
+import pro.javadev.sql.platform.mysql.MySQLLexerContextConfigurator;
 import pro.javadev.sql.platform.mysql.MySQLParserContextConfigurator;
 import pro.javadev.sql.platform.oracle.OracleLexerContextConfigurator;
 
@@ -30,39 +28,39 @@ import java.util.function.BiConsumer;
 public class Playground {
 
     public static void main(String... arguments) {
-        LexerContext context = new LexerContext.DefaultLexerContext();
-        Lexer        lexer   = new SQLLexer();
+        Lexer         lexer     = new SQLLexer();
+        Tokenizer     tokenizer = lexer.tokenize(SQLDialect.MYSQL, getLexerContext(), getSQLString("select-mysql"));
+        ParserContext context   = getParserContext();
 
-        context.setDialect(SQLDialect.MSSQL);
+        Parser<SelectStatement> parser = context.getParser(SQLDialect.MYSQL, SelectStatement.class);
 
-        new AnsiSQLLexerContextConfigurator().configure(context);
-        new MySQLLexerContextConfigurator().configure(context);
-        new MSSQLLexerContextConfigurator().configure(context);
-        new OracleLexerContextConfigurator().configure(context);
-
-        Tokenizer tokenizer = lexer.tokenize(SQLDialect.MYSQL, context, getSQLString("select-mysql"));
-
-        ParserContext parserContext = new ParserContext.DefaultParserContext();
-
-        new AnsiSQLParserContextConfigurator().configure(parserContext);
-        new MySQLParserContextConfigurator().configure(parserContext);
-
-        Parser<SelectStatement> parser = parserContext.getParser(SQLDialect.MYSQL, SelectStatement.class);
-
-        SelectStatement ast = parser.parse(SQLDialect.MYSQL, parserContext, tokenizer);
-
-        for (Node node : ast.findAll(IdentifierNode.class)) {
-//            System.out.println(node);
-        }
-
-        System.out.println(
-                renderXML(ast, 0)
-        );
+        SelectStatement ast = parser.parse(SQLDialect.MYSQL, context, tokenizer);
 
         BiConsumer<Node, Integer> consumer = (node, depth) -> System.out.println("\t".repeat(depth) + node);
 
         ast.execute(consumer);
+    }
 
+    public static ParserContext getParserContext() {
+        ParserContext ctx = new ParserContext.DefaultParserContext();
+
+        new AnsiSQLParserContextConfigurator().configure(ctx);
+        new MySQLParserContextConfigurator().configure(ctx);
+
+        return ctx;
+    }
+
+    public static LexerContext getLexerContext() {
+        LexerContext ctx = new LexerContext.DefaultLexerContext();
+
+        ctx.setDialect(SQLDialect.MSSQL);
+
+        new AnsiSQLLexerContextConfigurator().configure(ctx);
+        new MySQLLexerContextConfigurator().configure(ctx);
+        new MSSQLLexerContextConfigurator().configure(ctx);
+        new OracleLexerContextConfigurator().configure(ctx);
+
+        return ctx;
     }
 
     public static String renderXML(ASTNode node, int depth) {
