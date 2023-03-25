@@ -3,8 +3,7 @@ package pro.javadev.sql.platform.ansi_sql.parser;
 import pro.javadev.sql.library.SQLDialect;
 import pro.javadev.sql.library.ast.ASTNode;
 import pro.javadev.sql.library.ast.AliasExpression;
-import pro.javadev.sql.library.parser.AbstractParser;
-import pro.javadev.sql.library.parser.ParserContext;
+import pro.javadev.sql.library.parser.*;
 import pro.javadev.sql.library.tokenizer.Tokenizer;
 import pro.javadev.sql.library.ast.ColumnItem;
 import pro.javadev.sql.library.ast.SelectStatement;
@@ -23,9 +22,9 @@ public class SelectStatementParser extends AbstractParser<SelectStatement> {
     public SelectStatement parse(SQLDialect dialect, ParserContext context, Tokenizer tokenizer) {
         SelectStatement node = new SelectStatement();
 
-        getCurrentToken(T_SQL_SELECT, tokenizer);
-
-        parseSelectItems(dialect, context, tokenizer).forEach(node::add);
+        shift(T_SQL_SELECT, tokenizer);
+        parseSelectItems(dialect, context, tokenizer)
+                .forEach(node::add);
 
         return node;
     }
@@ -45,12 +44,18 @@ public class SelectStatementParser extends AbstractParser<SelectStatement> {
 
     protected ColumnItem parseSelectItem(SQLDialect dialect, ParserContext context, Tokenizer tokenizer) {
         ColumnItem item = context.getParser(dialect, ColumnItem.class).parse(dialect, context, tokenizer);
+        Parser<? extends ASTNode> parser = chain(dialect, context, SelectStatement.class);
 
         if (tokenizer.isCurrent(T_SQL_AS, T_IDENTIFIER)) {
             item.add(context.getParser(dialect, AliasExpression.class).parse(dialect, context, tokenizer));
         }
 
         return item;
+    }
+
+    @Override
+    public boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
+        return recognizer.isStatementExpression(tokenizer) && tokenizer.isCurrent(T_SQL_SELECT);
     }
 
 }

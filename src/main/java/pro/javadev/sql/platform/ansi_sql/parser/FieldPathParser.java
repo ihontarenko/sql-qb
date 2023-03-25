@@ -1,8 +1,11 @@
 package pro.javadev.sql.platform.ansi_sql.parser;
 
 import pro.javadev.sql.library.SQLDialect;
+import pro.javadev.sql.library.ast.AliasExpression;
 import pro.javadev.sql.library.ast.FieldPathExpression;
+import pro.javadev.sql.library.ast.TableIdentifier;
 import pro.javadev.sql.library.parser.AbstractParser;
+import pro.javadev.sql.library.parser.ExpressionRecognizer;
 import pro.javadev.sql.library.parser.ParserContext;
 import pro.javadev.sql.library.token.Token;
 import pro.javadev.sql.library.tokenizer.Tokenizer;
@@ -32,9 +35,14 @@ public class FieldPathParser extends AbstractParser<FieldPathExpression> {
         }
 
         expression.setTable(new TableIdentifier(table));
-        expression.setField(new FieldIdentifier(field));
+        expression.setField(new AliasExpression.FieldIdentifier(field));
 
         return expression;
+    }
+
+    @Override
+    public boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
+        return recognizer.isFieldPathExpression(tokenizer);
     }
 
 }

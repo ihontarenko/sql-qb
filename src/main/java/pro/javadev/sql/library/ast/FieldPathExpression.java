@@ -1,8 +1,5 @@
 package pro.javadev.sql.library.ast;
 
-import pro.javadev.sql.platform.ansi_sql.parser.FieldIdentifier;
-import pro.javadev.sql.platform.ansi_sql.parser.TableIdentifier;
-
 public class FieldPathExpression extends ASTNode {
 
     public FieldPathExpression() {
@@ -16,11 +13,11 @@ public class FieldPathExpression extends ASTNode {
         this.add(table);
     }
 
-    public FieldIdentifier getField() {
-        return getChild(FieldIdentifier.class);
+    public AliasExpression.FieldIdentifier getField() {
+        return getChild(AliasExpression.FieldIdentifier.class);
     }
 
-    public void setField(FieldIdentifier field) {
+    public void setField(AliasExpression.FieldIdentifier field) {
         this.add(field);
     }
 

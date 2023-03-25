@@ -6,4 +6,11 @@ public class AliasExpression extends ASTNode {
         return getChild(IdentifierNode.class);
     }
 
+    public static class FieldIdentifier extends IdentifierNode {
+
+        public FieldIdentifier(String identifier) {
+            super(identifier);
+        }
+
+    }
 }

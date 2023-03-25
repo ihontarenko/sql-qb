@@ -7,15 +7,25 @@ import java.util.Arrays;
 import java.util.List;
 
 import static pro.javadev.sql.library.token.DefaultToken.*;
+import static pro.javadev.sql.platform.ansi_sql.SQLToken.*;
 
 @SuppressWarnings({"unused"})
 public interface ExpressionRecognizer {
 
     List<Token> ARITHMETIC_TOKENS = Arrays.asList(T_MINUS, T_PLUS, T_DIVIDE, T_MULTIPLY, T_PERCENT);
+    List<Token> STATEMENTS_TOKENS = Arrays.asList(T_SQL_SELECT, T_SQL_UPDATE, T_SQL_DELETE, T_SQL_INSERT);
+
+    default boolean isStatementExpression(Tokenizer tokenizer) {
+        return tokenizer.isCurrent(STATEMENTS_TOKENS.toArray(Token[]::new));
+    }
 
     default boolean isExpression(Tokenizer tokenizer) {
         return isFieldPathExpression(tokenizer) || isFunctionExpression(tokenizer)
                 || isIdentifier(tokenizer) || isLiteralExpression(tokenizer);
+    }
+
+    default boolean isOpenBrace(Tokenizer tokenizer) {
+        return tokenizer.isCurrent(T_OPEN_BRACE);
     }
 
     default boolean isIdentifier(Tokenizer tokenizer) {

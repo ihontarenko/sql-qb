@@ -13,6 +13,10 @@ public class ExpressionItemParser extends AbstractParser<ExpressionItem> {
         ExpressionRecognizer      recognizer = context.getExpressionRecognizer(dialect);
         Parser<? extends ASTNode> parser;
 
+        Parser<? extends ASTNode> parser1 = chain(dialect, context,
+                FieldPathExpression.class, ArithmeticExpression.class, FunctionCallExpression.class,
+                IdentifierNode.class, LiteralNode.class, SelectStatement.class);
+
         if (recognizer.isFieldPathExpression(tokenizer)) {
             parser = context.getParser(dialect, FieldPathExpression.class);
         } else if (recognizer.isArithmeticExpression(tokenizer)) {
@@ -27,9 +31,16 @@ public class ExpressionItemParser extends AbstractParser<ExpressionItem> {
             throw new ParserException("UNRECOGNIZABLE NEXT TOKEN" + tokenizer.current());
         }
 
+        // chain(FieldPathExpression.class, ArithmeticExpression.class)
+
         item.add(parser.parse(dialect, context, tokenizer));
 
         return item;
+    }
+
+    @Override
+    public boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
+        return recognizer.isExpression(tokenizer);
     }
 
 }

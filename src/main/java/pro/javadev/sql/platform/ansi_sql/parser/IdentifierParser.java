@@ -3,6 +3,7 @@ package pro.javadev.sql.platform.ansi_sql.parser;
 import pro.javadev.sql.library.SQLDialect;
 import pro.javadev.sql.library.ast.IdentifierNode;
 import pro.javadev.sql.library.parser.AbstractParser;
+import pro.javadev.sql.library.parser.ExpressionRecognizer;
 import pro.javadev.sql.library.parser.ParserContext;
 import pro.javadev.sql.library.token.Token;
 import pro.javadev.sql.library.tokenizer.Tokenizer;
@@ -19,6 +20,11 @@ public class IdentifierParser extends AbstractParser<IdentifierNode> {
         identifier.setIdentifier(entry.value());
 
         return identifier;
+    }
+
+    @Override
+    public boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
+        return recognizer.isIdentifier(tokenizer);
     }
 
 }

@@ -46,7 +46,7 @@ public interface Tokenizer extends ListIterator<Token.Entry>, Iterable<Token.Ent
     }
 
     default boolean isCurrent(Token... tokens) {
-        return is(1, tokens);
+        return is(1, 0, tokens);
     }
 
     default boolean isNext(Token... tokens) {

@@ -4,6 +4,10 @@ import pro.javadev.sql.library.SQLDialect;
 import pro.javadev.sql.library.node.Node;
 import pro.javadev.sql.library.tokenizer.Tokenizer;
 
-public interface Parser<N extends Node> {
+public interface Parser<N extends Node> extends Node {
+
     N parse(SQLDialect dialect, ParserContext context, Tokenizer tokenizer);
+
+    boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer);
+
 }

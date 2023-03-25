@@ -2,14 +2,25 @@ package pro.javadev.sql.library.parser;
 
 import pro.javadev.sql.library.SQLDialect;
 import pro.javadev.sql.library.ast.ASTNode;
-import pro.javadev.sql.library.token.DefaultToken;
+import pro.javadev.sql.library.node.AbstractNode;
 import pro.javadev.sql.library.token.Token;
 import pro.javadev.sql.library.tokenizer.Tokenizer;
 
 import static pro.javadev.sql.library.token.DefaultToken.T_CLOSE_BRACE;
 import static pro.javadev.sql.library.token.DefaultToken.T_OPEN_BRACE;
 
-public abstract class AbstractParser<N extends ASTNode> implements Parser<N> {
+public abstract class AbstractParser<N extends ASTNode> extends AbstractNode implements Parser<N> {
+
+    @SafeVarargs
+    protected final Parser<? extends ASTNode> chain(SQLDialect dialect, ParserContext ctx, Class<? extends ASTNode>... classes) {
+        Parser<? extends ASTNode> parser = new ParserChain();
+
+        for (Class<? extends ASTNode> klass : classes) {
+            parser.add(ctx.getParser(dialect, klass));
+        }
+
+        return parser;
+    }
 
     protected <T extends ASTNode> T uncover(Parser<T> parser, SQLDialect dialect, ParserContext ctx, Tokenizer tokenizer) {
         T expression;
@@ -48,12 +59,6 @@ public abstract class AbstractParser<N extends ASTNode> implements Parser<N> {
 
     protected boolean isCurrent(Token expected, Tokenizer tokenizer) {
         return tokenizer.isCurrent(expected);
-    }
-
-    protected void moveForward(Token token, Tokenizer tokenizer) {
-        if (isCurrent(token, tokenizer)) {
-            tokenizer.next();
-        }
     }
 
 }

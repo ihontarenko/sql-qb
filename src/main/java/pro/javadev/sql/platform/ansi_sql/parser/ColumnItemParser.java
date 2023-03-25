@@ -4,6 +4,7 @@ import pro.javadev.sql.library.SQLDialect;
 import pro.javadev.sql.library.ast.ColumnItem;
 import pro.javadev.sql.library.ast.ExpressionItem;
 import pro.javadev.sql.library.parser.AbstractParser;
+import pro.javadev.sql.library.parser.ExpressionRecognizer;
 import pro.javadev.sql.library.parser.Parser;
 import pro.javadev.sql.library.parser.ParserContext;
 import pro.javadev.sql.library.tokenizer.Tokenizer;
@@ -18,6 +19,11 @@ public class ColumnItemParser extends AbstractParser<ColumnItem> {
         columnItem.add(parser.parse(dialect, context, tokenizer));
 
         return columnItem;
+    }
+
+    @Override
+    public boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
+        return recognizer.isExpression(tokenizer) || recognizer.isArithmeticExpression(tokenizer);
     }
 
 }

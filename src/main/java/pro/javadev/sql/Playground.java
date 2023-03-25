@@ -6,6 +6,7 @@ import pro.javadev.sql.library.ast.SelectStatement;
 import pro.javadev.sql.library.lexer.Lexer;
 import pro.javadev.sql.library.lexer.LexerContext;
 import pro.javadev.sql.library.node.Node;
+import pro.javadev.sql.library.parser.AbstractParser;
 import pro.javadev.sql.library.parser.Parser;
 import pro.javadev.sql.library.parser.ParserContext;
 import pro.javadev.sql.library.tokenizer.Tokenizer;
@@ -21,15 +22,16 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 public class Playground {
 
     public static void main(String... arguments) {
+
+
         Lexer         lexer     = new SQLLexer();
-        Tokenizer     tokenizer = lexer.tokenize(SQLDialect.MYSQL, getLexerContext(), getSQLString("select-mysql"));
+        Tokenizer     tokenizer = lexer.tokenize(SQLDialect.MYSQL, getLexerContext(), getSQLString("select-mysql-simple"));
         ParserContext context   = getParserContext();
 
         Parser<SelectStatement> parser = context.getParser(SQLDialect.MYSQL, SelectStatement.class);

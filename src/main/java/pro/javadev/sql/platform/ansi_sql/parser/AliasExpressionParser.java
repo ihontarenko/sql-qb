@@ -4,6 +4,7 @@ import pro.javadev.sql.library.SQLDialect;
 import pro.javadev.sql.library.ast.IdentifierNode;
 import pro.javadev.sql.library.ast.AliasExpression;
 import pro.javadev.sql.library.parser.AbstractParser;
+import pro.javadev.sql.library.parser.ExpressionRecognizer;
 import pro.javadev.sql.library.parser.Parser;
 import pro.javadev.sql.library.parser.ParserContext;
 import pro.javadev.sql.library.tokenizer.Tokenizer;
@@ -24,6 +25,11 @@ public class AliasExpressionParser extends AbstractParser<AliasExpression> {
         alias.add(parser.parse(dialect, context, tokenizer));
 
         return alias;
+    }
+
+    @Override
+    public boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
+        return tokenizer.isCurrent(T_SQL_AS);
     }
 
 }
