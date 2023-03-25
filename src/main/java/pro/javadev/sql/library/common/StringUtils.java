@@ -16,25 +16,32 @@ abstract public class StringUtils {
         return result;
     }
 
-    public static String underscored(final String value){
+    public static String underscored(final String value) {
         return underscored(value, false);
     }
 
-    public static String underscored(final String value,final boolean toUpperCase) {
+    public static String underscored(final String value, final boolean toUpperCase) {
         String result = value;
 
         if (value != null && !value.isBlank()) {
             StringBuilder builder  = new StringBuilder();
             char          previous = ' ';
+            char[]        chars    = value.toCharArray();
+            int           counter  = 0;
+            int           size     = chars.length;
+            char          next;
 
-            for (char current : value.toCharArray()) {
+            for (char current : chars) {
                 char newCharacter = toUpperCase ? toUpperCase(current) : toLowerCase(current);
+                int  nextIndex    = counter++ + 1;
 
-                if (isUpperCase(current) && isLetter(previous) && !isUpperCase(previous)) {
-                    builder.append("_").append(newCharacter);
-                } else {
-                    builder.append(newCharacter);
+                next = (nextIndex < size) ? chars[nextIndex] : ' ';
+
+                if (isUpperCase(current) && isLetter(previous) && (isLowerCase(previous) || isLowerCase(next))) {
+                    builder.append("_");
                 }
+
+                builder.append(newCharacter);
 
                 previous = current;
             }
