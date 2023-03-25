@@ -54,7 +54,7 @@ public class SelectStatementParser extends AbstractParser<SelectStatement> {
     }
 
     @Override
-    public boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
+    public boolean matchable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
         return recognizer.isStatementExpression(tokenizer) && tokenizer.isCurrent(T_SQL_SELECT);
     }
 

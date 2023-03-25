@@ -8,6 +8,6 @@ public interface Parser<N extends Node> extends Node {
 
     N parse(SQLDialect dialect, ParserContext context, Tokenizer tokenizer);
 
-    boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer);
+    boolean matchable(ExpressionRecognizer recognizer, Tokenizer tokenizer);
 
 }

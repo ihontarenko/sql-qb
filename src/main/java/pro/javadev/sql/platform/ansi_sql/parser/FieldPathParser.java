@@ -41,7 +41,7 @@ public class FieldPathParser extends AbstractParser<FieldPathExpression> {
     }
 
     @Override
-    public boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
+    public boolean matchable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
         return recognizer.isFieldPathExpression(tokenizer);
     }
 

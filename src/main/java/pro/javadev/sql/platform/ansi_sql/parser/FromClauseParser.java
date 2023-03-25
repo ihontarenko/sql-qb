@@ -19,7 +19,7 @@ public class FromClauseParser extends AbstractParser<FromClause> {
     }
 
     @Override
-    public boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
+    public boolean matchable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
         return tokenizer.isCurrent(T_SQL_FROM);
     }
 

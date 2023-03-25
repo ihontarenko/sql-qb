@@ -23,7 +23,7 @@ public class IdentifierParser extends AbstractParser<IdentifierNode> {
     }
 
     @Override
-    public boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
+    public boolean matchable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
         return recognizer.isIdentifier(tokenizer);
     }
 

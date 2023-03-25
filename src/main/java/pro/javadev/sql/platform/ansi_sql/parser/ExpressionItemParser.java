@@ -13,9 +13,21 @@ public class ExpressionItemParser extends AbstractParser<ExpressionItem> {
         ExpressionRecognizer      recognizer = context.getExpressionRecognizer(dialect);
         Parser<? extends ASTNode> parser;
 
+        // parser resolver
         Parser<? extends ASTNode> parser1 = chain(dialect, context,
                 FieldPathExpression.class, ArithmeticExpression.class, FunctionCallExpression.class,
                 IdentifierNode.class, LiteralNode.class, SelectStatement.class);
+
+        System.out.println(tokenizer.current());
+        ParserResolver resolver = resolver(
+                FieldPathExpression.class, ArithmeticExpression.class,
+                FunctionCallExpression.class, IdentifierNode.class,
+                LiteralNode.class, SelectStatement.class
+        );
+
+        System.out.println(
+                resolver.resolve(dialect, context, tokenizer)
+        );
 
         if (recognizer.isFieldPathExpression(tokenizer)) {
             parser = context.getParser(dialect, FieldPathExpression.class);
@@ -39,7 +51,7 @@ public class ExpressionItemParser extends AbstractParser<ExpressionItem> {
     }
 
     @Override
-    public boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
+    public boolean matchable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
         return recognizer.isExpression(tokenizer);
     }
 

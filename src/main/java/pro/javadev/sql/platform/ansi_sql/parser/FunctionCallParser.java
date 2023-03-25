@@ -35,7 +35,7 @@ public class FunctionCallParser extends AbstractParser<FunctionCallExpression> {
     }
 
     @Override
-    public boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
+    public boolean matchable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
         return recognizer.isFunctionExpression(tokenizer);
     }
 

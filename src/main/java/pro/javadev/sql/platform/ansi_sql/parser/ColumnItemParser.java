@@ -22,7 +22,7 @@ public class ColumnItemParser extends AbstractParser<ColumnItem> {
     }
 
     @Override
-    public boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
+    public boolean matchable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
         return recognizer.isExpression(tokenizer) || recognizer.isArithmeticExpression(tokenizer);
     }
 

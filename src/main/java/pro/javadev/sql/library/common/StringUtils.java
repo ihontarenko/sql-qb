@@ -1,7 +1,6 @@
 package pro.javadev.sql.library.common;
 
-import static java.lang.Character.toLowerCase;
-import static java.lang.Character.toUpperCase;
+import static java.lang.Character.*;
 
 abstract public class StringUtils {
 
@@ -31,7 +30,7 @@ abstract public class StringUtils {
             for (char current : value.toCharArray()) {
                 char newCharacter = toUpperCase ? toUpperCase(current) : toLowerCase(current);
 
-                if (Character.isUpperCase(current) && Character.isLetter(previous)) {
+                if (isUpperCase(current) && isLetter(previous) && !isUpperCase(previous)) {
                     builder.append("_").append(newCharacter);
                 } else {
                     builder.append(newCharacter);

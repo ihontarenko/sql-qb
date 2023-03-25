@@ -2,14 +2,21 @@ package pro.javadev.sql.library.parser;
 
 import pro.javadev.sql.library.SQLDialect;
 import pro.javadev.sql.library.ast.ASTNode;
+import pro.javadev.sql.library.common.StringUtils;
 import pro.javadev.sql.library.node.AbstractNode;
 import pro.javadev.sql.library.token.Token;
 import pro.javadev.sql.library.tokenizer.Tokenizer;
 
+import static pro.javadev.sql.library.common.StringUtils.underscored;
 import static pro.javadev.sql.library.token.DefaultToken.T_CLOSE_BRACE;
 import static pro.javadev.sql.library.token.DefaultToken.T_OPEN_BRACE;
 
 public abstract class AbstractParser<N extends ASTNode> extends AbstractNode implements Parser<N> {
+
+    @SafeVarargs
+    protected final ParserResolver resolver(Class<? extends ASTNode>... classes) {
+        return new ParserResolver(classes);
+    }
 
     @SafeVarargs
     protected final Parser<? extends ASTNode> chain(SQLDialect dialect, ParserContext ctx, Class<? extends ASTNode>... classes) {
@@ -59,6 +66,11 @@ public abstract class AbstractParser<N extends ASTNode> extends AbstractNode imp
 
     protected boolean isCurrent(Token expected, Tokenizer tokenizer) {
         return tokenizer.isCurrent(expected);
+    }
+
+    @Override
+    public String toString() {
+        return underscored(getClass().getSimpleName(), true);
     }
 
 }

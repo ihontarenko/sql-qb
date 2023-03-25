@@ -36,7 +36,7 @@ public class ArithmeticParser extends AbstractParser<ArithmeticExpression> {
     }
 
     @Override
-    public boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
+    public boolean matchable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
         return recognizer.isArithmeticExpression(tokenizer);
     }
 

@@ -14,7 +14,7 @@ public class ParserChain extends AbstractParser<ASTNode> {
 
         for (Node child : children()) {
             Parser<? extends ASTNode> parser = (Parser<? extends ASTNode>) child;
-            if (parser.isApplicable(recognizer, tokenizer)) {
+            if (parser.matchable(recognizer, tokenizer)) {
                 node = parser.parse(dialect, context, tokenizer);
             }
         }
@@ -23,7 +23,7 @@ public class ParserChain extends AbstractParser<ASTNode> {
     }
 
     @Override
-    public boolean isApplicable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
+    public boolean matchable(ExpressionRecognizer recognizer, Tokenizer tokenizer) {
         return false;
     }
 
