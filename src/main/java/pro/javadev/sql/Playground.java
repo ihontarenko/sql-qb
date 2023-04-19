@@ -28,8 +28,6 @@ import java.util.function.BiConsumer;
 public class Playground {
 
     public static void main(String... arguments) {
-
-
         Lexer         lexer     = new SQLLexer();
         Tokenizer     tokenizer = lexer.tokenize(SQLDialect.MYSQL, getLexerContext(), getSQLString("select-mysql-simple"));
         ParserContext context   = getParserContext();

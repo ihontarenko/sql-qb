@@ -18,17 +18,6 @@ public abstract class AbstractParser<N extends ASTNode> extends AbstractNode imp
         return new ParserResolver(classes);
     }
 
-    @SafeVarargs
-    protected final Parser<? extends ASTNode> chain(SQLDialect dialect, ParserContext ctx, Class<? extends ASTNode>... classes) {
-        Parser<? extends ASTNode> parser = new ParserChain();
-
-        for (Class<? extends ASTNode> klass : classes) {
-            parser.add(ctx.getParser(dialect, klass));
-        }
-
-        return parser;
-    }
-
     protected <T extends ASTNode> T uncover(Parser<T> parser, SQLDialect dialect, ParserContext ctx, Tokenizer tokenizer) {
         T expression;
 

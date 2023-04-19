@@ -44,7 +44,6 @@ public class SelectStatementParser extends AbstractParser<SelectStatement> {
 
     protected ColumnItem parseSelectItem(SQLDialect dialect, ParserContext context, Tokenizer tokenizer) {
         ColumnItem item = context.getParser(dialect, ColumnItem.class).parse(dialect, context, tokenizer);
-        Parser<? extends ASTNode> parser = chain(dialect, context, SelectStatement.class);
 
         if (tokenizer.isCurrent(T_SQL_AS, T_IDENTIFIER)) {
             item.add(context.getParser(dialect, AliasExpression.class).parse(dialect, context, tokenizer));

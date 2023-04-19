@@ -74,7 +74,7 @@ public interface Node {
         T result = null;
 
         switch (way) {
-            case UP:
+            case UP -> {
                 if (depth > 0 && !isRoot()) {
                     Node parent = parent();
                     if (predicate.test(parent)) {
@@ -83,8 +83,8 @@ public interface Node {
                         result = parent.findFirst(predicate, way, depth - 1);
                     }
                 }
-                break;
-            case DOWN:
+            }
+            case DOWN -> {
                 if (depth > 0 && hasChildren()) {
                     for (Node child : children()) {
                         if (predicate.test(child)) {
@@ -98,7 +98,7 @@ public interface Node {
                         }
                     }
                 }
-                break;
+            }
         }
 
 
@@ -141,7 +141,7 @@ public interface Node {
         List<T> result = new ArrayList<>();
 
         switch (way) {
-            case UP:
+            case UP -> {
                 if (depth > 0 && !isRoot()) {
                     T parent = (T) parent();
                     if (predicate.test(parent)) {
@@ -152,8 +152,8 @@ public interface Node {
                         );
                     }
                 }
-                break;
-            case DOWN:
+            }
+            case DOWN -> {
                 if (depth > 0 && hasChildren()) {
                     for (Node child : children()) {
                         if (predicate.test(child)) {
@@ -165,7 +165,7 @@ public interface Node {
                         );
                     }
                 }
-                break;
+            }
         }
 
         return result;
