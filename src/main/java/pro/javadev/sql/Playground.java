@@ -24,6 +24,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Playground {
 
@@ -31,7 +33,7 @@ public class Playground {
 
 
         Lexer         lexer     = new SQLLexer();
-        Tokenizer     tokenizer = lexer.tokenize(SQLDialect.MYSQL, getLexerContext(), getSQLString("select-mysql-simple"));
+        Tokenizer     tokenizer = lexer.tokenize(SQLDialect.MYSQL, getLexerContext(), getSQLString("select-mysql"));
         ParserContext context   = getParserContext();
 
         Parser<SelectStatement> parser = context.getParser(SQLDialect.MYSQL, SelectStatement.class);
