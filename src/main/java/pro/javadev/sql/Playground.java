@@ -30,8 +30,6 @@ import java.util.stream.Stream;
 public class Playground {
 
     public static void main(String... arguments) {
-
-
         Lexer         lexer     = new SQLLexer();
         Tokenizer     tokenizer = lexer.tokenize(SQLDialect.MYSQL, getLexerContext(), getSQLString("select-mysql"));
         ParserContext context   = getParserContext();
