@@ -1,10 +1,10 @@
 package pro.javadev.sql.platform.ansi_sql;
 
-import pro.javadev.sql.library.SQLDialect;
-import pro.javadev.sql.library.common.Configurator;
-import pro.javadev.sql.library.lexer.LexerContext;
-import pro.javadev.sql.library.lexer.TokenPattern;
-import pro.javadev.sql.library.token.DefaultToken;
+import pro.javadev.sql.internal.SQLDialect;
+import pro.javadev.sql.internal.common.Configurator;
+import pro.javadev.sql.internal.lexer.LexerContext;
+import pro.javadev.sql.internal.lexer.TokenPattern;
+import pro.javadev.sql.internal.token.DefaultToken;
 
 public class AnsiSQLLexerContextConfigurator implements Configurator<LexerContext> {
 

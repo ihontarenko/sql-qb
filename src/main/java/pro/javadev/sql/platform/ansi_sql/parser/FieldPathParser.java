@@ -1,16 +1,16 @@
 package pro.javadev.sql.platform.ansi_sql.parser;
 
-import pro.javadev.sql.library.SQLDialect;
-import pro.javadev.sql.library.ast.AliasExpression;
-import pro.javadev.sql.library.ast.FieldPathExpression;
-import pro.javadev.sql.library.ast.TableIdentifier;
-import pro.javadev.sql.library.parser.AbstractParser;
-import pro.javadev.sql.library.parser.ExpressionRecognizer;
-import pro.javadev.sql.library.parser.ParserContext;
-import pro.javadev.sql.library.token.Token;
-import pro.javadev.sql.library.tokenizer.Tokenizer;
+import pro.javadev.sql.internal.SQLDialect;
+import pro.javadev.sql.internal.ast.AliasExpression;
+import pro.javadev.sql.internal.ast.FieldPathExpression;
+import pro.javadev.sql.internal.ast.TableIdentifier;
+import pro.javadev.sql.internal.parser.AbstractParser;
+import pro.javadev.sql.internal.parser.ExpressionRecognizer;
+import pro.javadev.sql.internal.parser.ParserContext;
+import pro.javadev.sql.internal.token.Token;
+import pro.javadev.sql.internal.tokenizer.Tokenizer;
 
-import static pro.javadev.sql.library.token.DefaultToken.T_FIELD_PATH;
+import static pro.javadev.sql.internal.token.DefaultToken.T_FIELD_PATH;
 
 public class FieldPathParser extends AbstractParser<FieldPathExpression> {
 

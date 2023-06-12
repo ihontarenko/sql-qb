@@ -1,9 +1,9 @@
 package pro.javadev.sql.platform.mysql.parser;
 
-import pro.javadev.sql.library.SQLDialect;
-import pro.javadev.sql.library.ast.IdentifierNode;
-import pro.javadev.sql.library.parser.ParserContext;
-import pro.javadev.sql.library.tokenizer.Tokenizer;
+import pro.javadev.sql.internal.SQLDialect;
+import pro.javadev.sql.internal.ast.IdentifierNode;
+import pro.javadev.sql.internal.parser.ParserContext;
+import pro.javadev.sql.internal.tokenizer.Tokenizer;
 import pro.javadev.sql.platform.ansi_sql.parser.IdentifierParser;
 
 import java.util.Locale;

@@ -1,18 +1,18 @@
 package pro.javadev.sql.platform.ansi_sql.parser;
 
-import pro.javadev.sql.library.SQLDialect;
-import pro.javadev.sql.library.ast.ASTNode;
-import pro.javadev.sql.library.ast.AliasExpression;
-import pro.javadev.sql.library.parser.*;
-import pro.javadev.sql.library.tokenizer.Tokenizer;
-import pro.javadev.sql.library.ast.ColumnItem;
-import pro.javadev.sql.library.ast.SelectStatement;
+import pro.javadev.sql.internal.SQLDialect;
+import pro.javadev.sql.internal.ast.ASTNode;
+import pro.javadev.sql.internal.ast.AliasExpression;
+import pro.javadev.sql.internal.parser.*;
+import pro.javadev.sql.internal.tokenizer.Tokenizer;
+import pro.javadev.sql.internal.ast.ColumnItem;
+import pro.javadev.sql.internal.ast.SelectStatement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static pro.javadev.sql.library.token.DefaultToken.T_COMMA;
-import static pro.javadev.sql.library.token.DefaultToken.T_IDENTIFIER;
+import static pro.javadev.sql.internal.token.DefaultToken.T_COMMA;
+import static pro.javadev.sql.internal.token.DefaultToken.T_IDENTIFIER;
 import static pro.javadev.sql.platform.ansi_sql.SQLToken.T_SQL_AS;
 import static pro.javadev.sql.platform.ansi_sql.SQLToken.T_SQL_SELECT;
 

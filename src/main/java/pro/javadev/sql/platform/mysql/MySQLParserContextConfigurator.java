@@ -1,13 +1,13 @@
 package pro.javadev.sql.platform.mysql;
 
-import pro.javadev.sql.library.ast.FieldPathExpression;
-import pro.javadev.sql.library.ast.IdentifierNode;
-import pro.javadev.sql.library.common.Configurator;
-import pro.javadev.sql.library.parser.ParserContext;
+import pro.javadev.sql.internal.ast.FieldPathExpression;
+import pro.javadev.sql.internal.ast.IdentifierNode;
+import pro.javadev.sql.internal.common.Configurator;
+import pro.javadev.sql.internal.parser.ParserContext;
 import pro.javadev.sql.platform.mysql.parser.MySQLFieldPathParser;
 import pro.javadev.sql.platform.mysql.parser.MySQLIdentifierParser;
 
-import static pro.javadev.sql.library.SQLDialect.MYSQL;
+import static pro.javadev.sql.internal.SQLDialect.MYSQL;
 
 public class MySQLParserContextConfigurator implements Configurator<ParserContext> {
 

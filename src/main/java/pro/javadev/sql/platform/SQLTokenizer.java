@@ -1,7 +1,7 @@
 package pro.javadev.sql.platform;
 
-import pro.javadev.sql.library.token.Token;
-import pro.javadev.sql.library.tokenizer.AbstractTokenizer;
+import pro.javadev.sql.internal.token.Token;
+import pro.javadev.sql.internal.tokenizer.AbstractTokenizer;
 
 import java.util.List;
 

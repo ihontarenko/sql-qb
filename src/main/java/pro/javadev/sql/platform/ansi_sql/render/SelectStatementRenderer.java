@@ -1,10 +1,10 @@
 package pro.javadev.sql.platform.ansi_sql.render;
 
-import pro.javadev.sql.library.SQLDialect;
-import pro.javadev.sql.library.render.Renderer;
-import pro.javadev.sql.library.render.RendererContext;
-import pro.javadev.sql.library.ast.ColumnItem;
-import pro.javadev.sql.library.ast.SelectStatement;
+import pro.javadev.sql.internal.SQLDialect;
+import pro.javadev.sql.internal.render.Renderer;
+import pro.javadev.sql.internal.render.RendererContext;
+import pro.javadev.sql.internal.ast.ColumnItem;
+import pro.javadev.sql.internal.ast.SelectStatement;
 
 public class SelectStatementRenderer implements Renderer<SelectStatement> {
 

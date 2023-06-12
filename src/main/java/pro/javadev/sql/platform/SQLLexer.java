@@ -1,13 +1,13 @@
 package pro.javadev.sql.platform;
 
-import pro.javadev.sql.library.SQLDialect;
-import pro.javadev.sql.library.common.PriorityComparator;
-import pro.javadev.sql.library.lexer.Lexer;
-import pro.javadev.sql.library.lexer.LexerContext;
-import pro.javadev.sql.library.lexer.LexerException;
-import pro.javadev.sql.library.lexer.TokenPattern;
-import pro.javadev.sql.library.token.Token.Entry;
-import pro.javadev.sql.library.tokenizer.Tokenizer;
+import pro.javadev.sql.internal.SQLDialect;
+import pro.javadev.sql.internal.common.PriorityComparator;
+import pro.javadev.sql.internal.lexer.Lexer;
+import pro.javadev.sql.internal.lexer.LexerContext;
+import pro.javadev.sql.internal.lexer.LexerException;
+import pro.javadev.sql.internal.lexer.TokenPattern;
+import pro.javadev.sql.internal.token.Token.Entry;
+import pro.javadev.sql.internal.tokenizer.Tokenizer;
 
 import java.util.ArrayList;
 import java.util.List;

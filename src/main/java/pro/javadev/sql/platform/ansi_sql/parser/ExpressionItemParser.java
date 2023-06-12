@@ -1,9 +1,9 @@
 package pro.javadev.sql.platform.ansi_sql.parser;
 
-import pro.javadev.sql.library.SQLDialect;
-import pro.javadev.sql.library.ast.*;
-import pro.javadev.sql.library.parser.*;
-import pro.javadev.sql.library.tokenizer.Tokenizer;
+import pro.javadev.sql.internal.SQLDialect;
+import pro.javadev.sql.internal.ast.*;
+import pro.javadev.sql.internal.parser.*;
+import pro.javadev.sql.internal.tokenizer.Tokenizer;
 
 public class ExpressionItemParser extends AbstractParser<ExpressionItem> {
 
@@ -12,7 +12,7 @@ public class ExpressionItemParser extends AbstractParser<ExpressionItem> {
         ExpressionItem item = new ExpressionItem();
         Parser<? extends ASTNode> parser = resolver(
                 FieldPathExpression.class,
-                ArithmeticExpression.class,
+//                ArithmeticExpression.class,
                 FunctionCallExpression.class,
                 IdentifierNode.class,
                 LiteralNode.class

@@ -1,9 +1,9 @@
 package pro.javadev.sql.platform.ansi_sql.parser;
 
-import pro.javadev.sql.library.SQLDialect;
-import pro.javadev.sql.library.ast.*;
-import pro.javadev.sql.library.parser.*;
-import pro.javadev.sql.library.tokenizer.Tokenizer;
+import pro.javadev.sql.internal.SQLDialect;
+import pro.javadev.sql.internal.ast.*;
+import pro.javadev.sql.internal.parser.*;
+import pro.javadev.sql.internal.tokenizer.Tokenizer;
 
 public class ArithmeticParser extends AbstractParser<ArithmeticExpression> {
 
@@ -11,6 +11,7 @@ public class ArithmeticParser extends AbstractParser<ArithmeticExpression> {
     public ArithmeticExpression parse(SQLDialect dialect, ParserContext context, Tokenizer tokenizer) {
         ArithmeticExpression      expression = new ArithmeticExpression();
         ExpressionRecognizer      recognizer = context.getExpressionRecognizer(dialect);
+
 //        Parser<? extends ASTNode> parser;
 //
 //        if (recognizer.isFieldPathExpression(tokenizer)) {

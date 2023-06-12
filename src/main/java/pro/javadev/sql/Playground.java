@@ -1,15 +1,14 @@
 package pro.javadev.sql;
 
-import pro.javadev.sql.library.SQLDialect;
-import pro.javadev.sql.library.ast.ASTNode;
-import pro.javadev.sql.library.ast.SelectStatement;
-import pro.javadev.sql.library.lexer.Lexer;
-import pro.javadev.sql.library.lexer.LexerContext;
-import pro.javadev.sql.library.node.Node;
-import pro.javadev.sql.library.parser.AbstractParser;
-import pro.javadev.sql.library.parser.Parser;
-import pro.javadev.sql.library.parser.ParserContext;
-import pro.javadev.sql.library.tokenizer.Tokenizer;
+import pro.javadev.sql.internal.SQLDialect;
+import pro.javadev.sql.internal.ast.ASTNode;
+import pro.javadev.sql.internal.ast.SelectStatement;
+import pro.javadev.sql.internal.lexer.Lexer;
+import pro.javadev.sql.internal.lexer.LexerContext;
+import pro.javadev.sql.internal.node.Node;
+import pro.javadev.sql.internal.parser.Parser;
+import pro.javadev.sql.internal.parser.ParserContext;
+import pro.javadev.sql.internal.tokenizer.Tokenizer;
 import pro.javadev.sql.platform.SQLLexer;
 import pro.javadev.sql.platform.ansi_sql.AnsiSQLLexerContextConfigurator;
 import pro.javadev.sql.platform.ansi_sql.AnsiSQLParserContextConfigurator;
@@ -24,8 +23,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.BiConsumer;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Playground {
 

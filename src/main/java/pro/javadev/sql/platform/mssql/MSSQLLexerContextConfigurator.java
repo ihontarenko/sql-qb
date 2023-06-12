@@ -1,9 +1,9 @@
 package pro.javadev.sql.platform.mssql;
 
-import pro.javadev.sql.library.SQLDialect;
-import pro.javadev.sql.library.common.Configurator;
-import pro.javadev.sql.library.lexer.LexerContext;
-import pro.javadev.sql.library.lexer.TokenPattern;
+import pro.javadev.sql.internal.SQLDialect;
+import pro.javadev.sql.internal.common.Configurator;
+import pro.javadev.sql.internal.lexer.LexerContext;
+import pro.javadev.sql.internal.lexer.TokenPattern;
 
 public class MSSQLLexerContextConfigurator implements Configurator<LexerContext> {
 

@@ -1,11 +1,11 @@
 package pro.javadev.sql.platform.ansi_sql;
 
-import pro.javadev.sql.library.ast.*;
-import pro.javadev.sql.library.common.Configurator;
-import pro.javadev.sql.library.parser.ParserContext;
+import pro.javadev.sql.internal.ast.*;
+import pro.javadev.sql.internal.common.Configurator;
+import pro.javadev.sql.internal.parser.ParserContext;
 import pro.javadev.sql.platform.ansi_sql.parser.*;
 
-import static pro.javadev.sql.library.SQLDialect.ANSI_SQL;
+import static pro.javadev.sql.internal.SQLDialect.ANSI_SQL;
 
 public class AnsiSQLParserContextConfigurator implements Configurator<ParserContext> {
 

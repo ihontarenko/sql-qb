@@ -1,6 +1,6 @@
 package pro.javadev.sql.platform.mysql;
 
-import pro.javadev.sql.library.token.Token;
+import pro.javadev.sql.internal.token.Token;
 
 import java.util.regex.Pattern;
 
